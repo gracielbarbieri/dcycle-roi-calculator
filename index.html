@@ -756,6 +756,12 @@ body {
           <div class="block-subtitle" data-i18n="b1Subtitle">Time and cost saved by replacing external consultancy work with Dcycle.</div>
         </div>
         <div class="block-body">
+          <!-- Selected solutions with hours breakdown -->
+          <div class="field-group">
+            <label class="field-label" data-i18n="b1SelectedSolutions">Selected solutions — hours comparison</label>
+          </div>
+          <div class="checkbox-list" id="b1SolutionsSummary"></div>
+          <div class="divider"></div>
           <div class="field-group">
             <label class="field-label"><span data-i18n="consultancyRate">Consultancy hourly rate</span> (<span id="b1Curr">&euro;</span>/h)</label>
             <input type="number" class="field-input" id="consultancyRate" value="40" min="0" step="5" oninput="calcBlock1()">
@@ -957,6 +963,8 @@ const LANGS = {
     modeConsultingDesc: 'We outsource ESG tasks to external consultants',
     modeInternalLabel: 'Dedicated internal team',
     modeInternalDesc: 'We have internal employees handling ESG tasks',
+    b1SelectedSolutions: 'Selected solutions — hours comparison',
+    noSolutionsSelected: 'Select solutions in Step 1 above to see the hours comparison.',
     b2SolutionsHintShort: 'Hours with Dcycle are auto-calculated based on your industry and selected solutions',
     selectSolutions: 'Select your Dcycle solutions',
     b2SolutionsHint: 'Hours with Dcycle are auto-calculated based on your industry and selected solutions',
@@ -1039,6 +1047,8 @@ const LANGS = {
     modeConsultingDesc: 'Externalizamos las tareas ESG a consultores externos',
     modeInternalLabel: 'Equipo interno dedicado',
     modeInternalDesc: 'Tenemos empleados internos gestionando las tareas ESG',
+    b1SelectedSolutions: 'Soluciones seleccionadas — comparacion de horas',
+    noSolutionsSelected: 'Selecciona soluciones en el Paso 1 para ver la comparacion de horas.',
     b2SolutionsHintShort: 'Las horas con Dcycle se calculan automaticamente segun tu industria y soluciones seleccionadas',
     b1Title: 'Ahorro en Consultoria',
     b1Subtitle: 'Tiempo y coste ahorrado al sustituir consultoria externa con Dcycle.',
@@ -1103,6 +1113,8 @@ const LANGS = {
     modeConsultingDesc: 'Nous externalisons les taches ESG a des consultants externes',
     modeInternalLabel: 'Equipe interne dediee',
     modeInternalDesc: 'Nous avons des employes internes qui gerent les taches ESG',
+    b1SelectedSolutions: 'Solutions selectionnees — comparaison des heures',
+    noSolutionsSelected: 'Selectionnez des solutions a l\'etape 1 pour voir la comparaison des heures.',
     b2SolutionsHintShort: 'Les heures avec Dcycle sont calculees automatiquement selon votre industrie et les solutions selectionnees',
     b1Title: 'Economies de Conseil', b1Subtitle: 'Temps et couts economises en remplacant le conseil externe par Dcycle.',
     b2Title: "Efficacite de l'Equipe Interne", b2Subtitle: "Economies salariales en reduisant la charge ESG de votre equipe avec Dcycle.",
@@ -1155,6 +1167,8 @@ const LANGS = {
     modeConsultingDesc: 'Wir lagern ESG-Aufgaben an externe Berater aus',
     modeInternalLabel: 'Internes Team',
     modeInternalDesc: 'Wir haben interne Mitarbeiter, die ESG-Aufgaben bearbeiten',
+    b1SelectedSolutions: 'Ausgewahlte Losungen — Stundenvergleich',
+    noSolutionsSelected: 'Wahlen Sie in Schritt 1 Losungen aus, um den Stundenvergleich zu sehen.',
     b2SolutionsHintShort: 'Stunden mit Dcycle werden automatisch basierend auf Branche und ausgewahlten Losungen berechnet',
     b1Title: 'Beratungseinsparungen', b1Subtitle: 'Zeit- und Kosteneinsparungen durch Ersatz externer Beratung mit Dcycle.',
     b2Title: 'Interne Teameffizienz', b2Subtitle: 'Gehaltseinsparungen durch Reduzierung der ESG-Arbeitslast Ihres Teams mit Dcycle.',
@@ -1207,6 +1221,8 @@ const LANGS = {
     modeConsultingDesc: 'Esternalizziamo le attivita ESG a consulenti esterni',
     modeInternalLabel: 'Team interno dedicato',
     modeInternalDesc: 'Abbiamo dipendenti interni che gestiscono le attivita ESG',
+    b1SelectedSolutions: 'Soluzioni selezionate — confronto ore',
+    noSolutionsSelected: 'Seleziona le soluzioni nel Passaggio 1 per vedere il confronto delle ore.',
     b2SolutionsHintShort: 'Le ore con Dcycle sono calcolate automaticamente in base al settore e alle soluzioni selezionate',
     b1Title: 'Risparmi Consulenza', b1Subtitle: 'Tempo e costi risparmiati sostituendo la consulenza esterna con Dcycle.',
     b2Title: 'Efficienza Team Interno', b2Subtitle: 'Risparmi salariali riducendo il carico ESG del tuo team con Dcycle.',
@@ -1258,6 +1274,8 @@ const LANGS = {
     modeConsultingDesc: 'Externalizamos as tarefas ESG a consultores externos',
     modeInternalLabel: 'Equipa interna dedicada',
     modeInternalDesc: 'Temos funcionarios internos a gerir as tarefas ESG',
+    b1SelectedSolutions: 'Solucoes selecionadas — comparacao de horas',
+    noSolutionsSelected: 'Selecione solucoes no Passo 1 para ver a comparacao de horas.',
     b2SolutionsHintShort: 'As horas com Dcycle sao calculadas automaticamente com base na industria e solucoes selecionadas',
     b1Title: 'Poupanca em Consultoria', b1Subtitle: 'Tempo e custo poupado ao substituir consultoria externa por Dcycle.',
     b2Title: 'Eficiencia da Equipa Interna', b2Subtitle: 'Poupanca salarial ao reduzir a carga ESG da sua equipa com Dcycle.',
@@ -1309,6 +1327,8 @@ const LANGS = {
     modeConsultingDesc: 'Wij besteden ESG-taken uit aan externe adviseurs',
     modeInternalLabel: 'Intern team',
     modeInternalDesc: 'Wij hebben interne medewerkers die ESG-taken beheren',
+    b1SelectedSolutions: 'Geselecteerde oplossingen — urenvergelijking',
+    noSolutionsSelected: 'Selecteer oplossingen in Stap 1 om de urenvergelijking te zien.',
     b2SolutionsHintShort: 'Uren met Dcycle worden automatisch berekend op basis van sector en geselecteerde oplossingen',
     b1Title: 'Adviesbesparingen', b1Subtitle: 'Tijd- en kostenbesparing door extern advies te vervangen door Dcycle.',
     b2Title: 'Interne Team Efficientie', b2Subtitle: 'Salaris besparing door ESG-werklast van uw team te verminderen met Dcycle.',
@@ -1435,12 +1455,9 @@ function buildB1Solutions() {
   list.innerHTML = '';
   SOLUTION_KEYS.forEach(key => {
     const s = SOLUTIONS_DATA[key];
-    const pct = s.b1Manual > 0 ? Math.round(((s.b1Manual - s.b1Dcycle) / s.b1Manual) * 100) : 0;
     list.innerHTML += `<label class="checkbox-item" data-manual="${s.b1Manual}" data-dcycle="${s.b1Dcycle}" data-key="${key}">
       <input type="checkbox" onchange="toggleCB(this); onSharedSolutionChange()">
       <span class="cb-label">${t('sol_'+key)}</span>
-      <span class="cb-hours">${s.b1Manual} \u2192 ${s.b1Dcycle} h</span>
-      <span class="cb-savings">-${pct}%</span>
     </label>`;
   });
 }
@@ -1458,7 +1475,26 @@ function onSharedSolutionChange() {
       item.classList.toggle('checked', shouldCheck);
     }
   });
+  buildB1SolutionsSummary();
   calcAll();
+}
+function buildB1SolutionsSummary() {
+  const container = document.getElementById('b1SolutionsSummary');
+  let html = '';
+  document.querySelectorAll('#solutionsList .checkbox-item').forEach(item => {
+    if (item.querySelector('input').checked) {
+      const key = item.dataset.key;
+      const s = SOLUTIONS_DATA[key];
+      const pct = s.b1Manual > 0 ? Math.round(((s.b1Manual - s.b1Dcycle) / s.b1Manual) * 100) : 0;
+      html += `<div class="checkbox-item checked" style="cursor:default;">
+        <span class="cb-label">${t('sol_'+key)}</span>
+        <span class="cb-hours">${s.b1Manual} \u2192 ${s.b1Dcycle} h</span>
+        <span class="cb-savings">-${pct}%</span>
+      </div>`;
+    }
+  });
+  if (!html) html = `<div style="font-size:12px;color:var(--gray-50);padding:8px 0;" data-i18n="noSolutionsSelected">${t('noSolutionsSelected')}</div>`;
+  container.innerHTML = html;
 }
 
 // ===================== HELPERS =====================
@@ -1552,7 +1588,7 @@ function setMode(mode) {
   document.getElementById('panelB1').classList.toggle('visible', mode==='b1');
   document.getElementById('panelB2').classList.toggle('visible', mode==='b2');
   document.getElementById('totalRoiSection').style.display = mode ? 'block' : 'none';
-  if (mode==='b1') calcBlock1();
+  if (mode==='b1') { buildB1SolutionsSummary(); calcBlock1(); }
   else if (mode==='b2') calcBlock2();
   updateTotal();
 }
