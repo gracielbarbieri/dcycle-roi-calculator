@@ -1462,20 +1462,9 @@ function buildB1Solutions() {
   });
 }
 function onSharedSolutionChange() {
-  // Sync shared solutions to B2 solutions list: check/uncheck matching keys
-  const sharedChecked = new Set();
-  document.querySelectorAll('#solutionsList .checkbox-item').forEach(item => {
-    if (item.querySelector('input').checked) sharedChecked.add(item.dataset.key);
-  });
-  document.querySelectorAll('#b2SolutionsList .checkbox-item').forEach(item => {
-    const cb = item.querySelector('input');
-    const shouldCheck = sharedChecked.has(item.dataset.key);
-    if (cb.checked !== shouldCheck) {
-      cb.checked = shouldCheck;
-      item.classList.toggle('checked', shouldCheck);
-    }
-  });
+  // Rebuild both panels to only show selected solutions
   buildB1SolutionsSummary();
+  if (currentIndustry) buildB2Solutions();
   calcAll();
 }
 function buildB1SolutionsSummary() {
@@ -1589,7 +1578,7 @@ function setMode(mode) {
   document.getElementById('panelB2').classList.toggle('visible', mode==='b2');
   document.getElementById('totalRoiSection').style.display = mode ? 'block' : 'none';
   if (mode==='b1') { buildB1SolutionsSummary(); calcBlock1(); }
-  else if (mode==='b2') calcBlock2();
+  else if (mode==='b2') { if (currentIndustry) buildB2Solutions(); calcBlock2(); }
   updateTotal();
 }
 
@@ -1597,23 +1586,24 @@ function buildB2Solutions() {
   const solList = document.getElementById('b2SolutionsList');
   if (!currentIndustry || !INDUSTRY_DATA[currentIndustry]) { solList.innerHTML=''; return; }
   const ind = INDUSTRY_DATA[currentIndustry];
-  // Get which solutions are checked in the shared Step 1 list
+  // Only show solutions that are checked in the shared Step 1 list
   const sharedChecked = new Set();
   document.querySelectorAll('#solutionsList .checkbox-item').forEach(item => {
     if (item.querySelector('input').checked) sharedChecked.add(item.dataset.key);
   });
   let html = '';
   SOLUTION_KEYS.forEach(key => {
+    if (!sharedChecked.has(key)) return;
     const s = ind.solutions[key]; if (!s) return;
     const pct = s.before>0 ? Math.round(((s.before-s.after)/s.before)*100) : 0;
-    const isChecked = sharedChecked.has(key);
-    html += `<label class="checkbox-item b2-solution${isChecked?' checked':''}" data-key="${key}" data-before="${s.before}" data-after="${s.after}">
-      <input type="checkbox"${isChecked?' checked':''} onchange="toggleCB(this); calcBlock2()">
+    html += `<div class="checkbox-item b2-solution checked" style="cursor:default;" data-key="${key}" data-before="${s.before}" data-after="${s.after}">
+      <input type="checkbox" checked style="display:none;">
       <span class="cb-label">${t('sol_'+key)}</span>
       <span class="cb-hours">${s.before} \u2192 ${s.after} h/mo</span>
       <span class="cb-savings">-${pct}%</span>
-    </label>`;
+    </div>`;
   });
+  if (!html) html = `<div style="font-size:12px;color:var(--gray-50);padding:8px 0;">${t('noSolutionsSelected')}</div>`;
   solList.innerHTML = html;
 }
 
