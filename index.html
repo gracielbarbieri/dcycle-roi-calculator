@@ -176,18 +176,117 @@ body {
   padding: 28px 24px 80px;
 }
 
-/* Blocks Grid — 2 columns */
-.blocks-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+/* Steps Flow — single column */
+.steps-flow {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
   margin-bottom: 28px;
-}
-@media (max-width: 960px) {
-  .blocks-grid { grid-template-columns: 1fr; }
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Block Card */
+/* Step Card */
+.step-card {
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.step-card:hover { box-shadow: var(--shadow-lg); }
+.step-header {
+  padding: 22px 22px 14px;
+  border-bottom: 1px solid var(--gray-20);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  background: var(--dc-blue);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.step-header-text { flex: 1; }
+
+/* Mode Toggle */
+.mode-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 0 22px 22px;
+}
+.mode-card {
+  border: 2px solid var(--gray-20);
+  border-radius: 14px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: center;
+  position: relative;
+}
+.mode-card:hover { border-color: var(--blue-20); background: var(--blue-5); }
+.mode-card.active {
+  border-color: var(--dc-blue);
+  background: var(--blue-5);
+  box-shadow: 0 0 0 3px rgba(41,71,254,0.12);
+}
+.mode-card.active.mode-b2 {
+  border-color: #0EA5E9;
+  background: #F0F9FF;
+  box-shadow: 0 0 0 3px rgba(14,165,233,0.12);
+}
+.mode-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+  display: block;
+}
+.mode-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray-90);
+  margin-bottom: 4px;
+}
+.mode-desc {
+  font-size: 12px;
+  color: var(--gray-50);
+  line-height: 1.4;
+}
+.mode-radio {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 18px; height: 18px;
+  border: 2px solid var(--gray-30);
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+.mode-card.active .mode-radio {
+  border-color: var(--dc-blue);
+  background: var(--dc-blue);
+  box-shadow: inset 0 0 0 3px white;
+}
+.mode-card.active.mode-b2 .mode-radio {
+  border-color: #0EA5E9;
+  background: #0EA5E9;
+}
+@media (max-width: 600px) {
+  .mode-toggle { grid-template-columns: 1fr; }
+}
+
+/* Conditional panels */
+.calc-panel { display: none; }
+.calc-panel.visible { display: block; }
+
+/* Block Card (used inside calc panels) */
 .block-card {
   background: var(--white);
   border-radius: 16px;
@@ -196,6 +295,8 @@ body {
   display: flex;
   flex-direction: column;
   transition: box-shadow 0.3s;
+  max-width: 780px;
+  margin: 0 auto;
 }
 .block-card:hover { box-shadow: var(--shadow-lg); }
 .block-header {
@@ -415,6 +516,9 @@ body {
   position: relative;
   overflow: hidden;
   margin-bottom: 28px;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .total-roi::before {
   content: '';
@@ -475,6 +579,9 @@ body {
   border-radius: 20px;
   box-shadow: var(--shadow-lg);
   overflow: hidden;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .lead-header {
   background: linear-gradient(135deg, var(--dc-blue) 0%, #1a33d4 100%);
@@ -567,7 +674,7 @@ body {
 <!-- HERO -->
 <section class="hero">
   <h1 data-i18n="heroTitle">Calculate your ROI with Dcycle</h1>
-  <p data-i18n="heroSubtitle">Discover how much your company saves in consultancy costs and internal team hours.</p>
+  <p data-i18n="heroSubtitle">Discover how much your company can save in consultancy costs and internal team hours. These savings have been reported by customers across different industries and countries using Dcycle's ESG solutions.</p>
   <div class="filters-row">
     <div class="filter-group">
       <label for="countrySelect" data-i18n="country">Country:</label>
@@ -599,142 +706,177 @@ body {
 
 <!-- MAIN -->
 <main class="main">
-  <div class="blocks-grid">
+  <div class="steps-flow">
 
-    <!-- =========== BLOCK 1: CONSULTANCY SAVINGS =========== -->
-    <div class="block-card">
-      <div class="block-header">
-        <div class="block-number">1</div>
-        <div class="block-title" data-i18n="b1Title">Consultancy Savings</div>
-        <div class="block-subtitle" data-i18n="b1Subtitle">Time and cost saved by replacing external consultancy work with Dcycle.</div>
+    <!-- =========== STEP 1: SELECT DCYCLE SOLUTIONS =========== -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <div class="step-header-text">
+          <div class="block-title" data-i18n="stepSolutionsTitle">Select your Dcycle ESG Solutions</div>
+          <div class="block-subtitle" data-i18n="stepSolutionsSubtitle">Choose which Dcycle solutions your company uses or plans to use.</div>
+        </div>
       </div>
       <div class="block-body">
-        <!-- Solutions first -->
-        <div class="field-group">
-          <label class="field-label" data-i18n="selectSolutions">Select your Dcycle solutions</label>
-        </div>
         <div class="checkbox-list" id="solutionsList"></div>
-        <div class="divider"></div>
-        <div class="field-group">
-          <label class="field-label"><span data-i18n="consultancyRate">Consultancy hourly rate</span> (<span id="b1Curr">&euro;</span>/h)</label>
-          <input type="number" class="field-input" id="consultancyRate" value="40" min="0" step="5" oninput="calcBlock1()">
-          <span class="field-hint" data-i18n="consultancyHint">Average rate for ESG/sustainability consulting</span>
+      </div>
+    </div>
+
+    <!-- =========== STEP 2: CHOOSE CALCULATION MODE =========== -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <div class="step-header-text">
+          <div class="block-title" data-i18n="stepModeTitle">How do you currently manage ESG?</div>
+          <div class="block-subtitle" data-i18n="stepModeSubtitle">Select how your company handles ESG work today to see your personalized savings.</div>
         </div>
-        <div class="block-results">
-          <div class="block-results-title" data-i18n="b1ResultsTitle">Consultancy Savings</div>
-          <div class="result-row">
-            <span class="result-label" data-i18n="manualHoursYear">Manual hours/year</span>
-            <span class="result-value" id="b1ManualH">0 h</span>
+      </div>
+      <div class="mode-toggle">
+        <div class="mode-card" id="modeB1" onclick="setMode('b1')">
+          <div class="mode-radio"></div>
+          <span class="mode-icon">&#127970;</span>
+          <div class="mode-label" data-i18n="modeConsultingLabel">Third-party consulting</div>
+          <div class="mode-desc" data-i18n="modeConsultingDesc">We outsource ESG tasks to external consultants</div>
+        </div>
+        <div class="mode-card mode-b2" id="modeB2" onclick="setMode('b2')">
+          <div class="mode-radio"></div>
+          <span class="mode-icon">&#128101;</span>
+          <div class="mode-label" data-i18n="modeInternalLabel">Dedicated internal team</div>
+          <div class="mode-desc" data-i18n="modeInternalDesc">We have internal employees handling ESG tasks</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========== PANEL: CONSULTANCY SAVINGS (shown when mode=b1) =========== -->
+    <div class="calc-panel" id="panelB1">
+      <div class="block-card">
+        <div class="block-header">
+          <div class="block-number">&#10003;</div>
+          <div class="block-title" data-i18n="b1Title">Consultancy Savings</div>
+          <div class="block-subtitle" data-i18n="b1Subtitle">Time and cost saved by replacing external consultancy work with Dcycle.</div>
+        </div>
+        <div class="block-body">
+          <div class="field-group">
+            <label class="field-label"><span data-i18n="consultancyRate">Consultancy hourly rate</span> (<span id="b1Curr">&euro;</span>/h)</label>
+            <input type="number" class="field-input" id="consultancyRate" value="40" min="0" step="5" oninput="calcBlock1()">
+            <span class="field-hint" data-i18n="consultancyHint">Average rate for ESG/sustainability consulting</span>
           </div>
-          <div class="result-row">
-            <span class="result-label" data-i18n="hoursDcycleYear">Hours with Dcycle/year</span>
-            <span class="result-value" id="b1DcycleH">0 h</span>
-          </div>
-          <div class="result-row">
-            <span class="result-label" data-i18n="hoursSavedYear">Hours saved/year</span>
-            <span class="result-value" id="b1SavedH">0 h</span>
-          </div>
-          <div class="result-row">
-            <span class="result-label" data-i18n="consultancyCostH">Consultancy cost/hour</span>
-            <span class="result-value" id="b1CostH">0</span>
-          </div>
-          <div class="divider"></div>
-          <div class="result-row">
-            <span class="result-label" data-i18n="totalSavings">Total savings</span>
-            <span class="result-value highlight" id="b1Total">0</span>
+          <div class="block-results">
+            <div class="block-results-title" data-i18n="b1ResultsTitle">Consultancy Savings</div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="manualHoursYear">Manual hours/year</span>
+              <span class="result-value" id="b1ManualH">0 h</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="hoursDcycleYear">Hours with Dcycle/year</span>
+              <span class="result-value" id="b1DcycleH">0 h</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="hoursSavedYear">Hours saved/year</span>
+              <span class="result-value" id="b1SavedH">0 h</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="consultancyCostH">Consultancy cost/hour</span>
+              <span class="result-value" id="b1CostH">0</span>
+            </div>
+            <div class="divider"></div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="totalSavings">Total savings</span>
+              <span class="result-value highlight" id="b1Total">0</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- =========== BLOCK 2: INTERNAL TEAM =========== -->
-    <div class="block-card">
-      <div class="block-header">
-        <div class="block-number b2">2</div>
-        <div class="block-title" data-i18n="b2Title">Internal Team Efficiency</div>
-        <div class="block-subtitle" data-i18n="b2Subtitle">Salary savings from reducing your internal team's ESG workload with Dcycle.</div>
-      </div>
-      <div class="block-body">
+    <!-- =========== PANEL: INTERNAL TEAM (shown when mode=b2) =========== -->
+    <div class="calc-panel" id="panelB2">
+      <div class="block-card">
+        <div class="block-header">
+          <div class="block-number b2">&#10003;</div>
+          <div class="block-title" data-i18n="b2Title">Internal Team Efficiency</div>
+          <div class="block-subtitle" data-i18n="b2Subtitle">Salary savings from reducing your internal team's ESG workload with Dcycle.</div>
+        </div>
+        <div class="block-body">
 
-        <!-- Solutions first -->
-        <div class="field-group">
-          <label class="field-label" data-i18n="selectSolutions">Select your Dcycle solutions</label>
-          <span class="field-hint" data-i18n="b2SolutionsHint">Hours with Dcycle are auto-calculated based on your industry and selected solutions</span>
-        </div>
-        <div class="no-industry-hint" id="b2NoIndustryHint">
-          <span class="hint-icon">&#9888;</span>
-          <span data-i18n="selectIndustryHint">Select an <strong>industry</strong> at the top to see solution-specific savings benchmarks.</span>
-        </div>
-        <div class="checkbox-list" id="b2SolutionsList" style="display:none;"></div>
-        <div class="calc-hours-display" id="b2CalcDisplay" style="display:none;">
-          <div>
-            <div class="calc-hours-label" data-i18n="monthlyWithDcycle">Monthly hours with Dcycle (auto-calculated)</div>
-            <div class="calc-hours-hint" data-i18n="basedOnBenchmarks">Based on selected solutions &amp; industry benchmarks</div>
-          </div>
-          <div class="calc-hours-value" id="b2CalcHours">0 h</div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="field-group">
-          <label class="field-label" data-i18n="employeesESG">Employees involved in ESG tasks</label>
-          <input type="number" class="field-input" id="b2NumEmp" value="2" min="1" max="200" oninput="calcBlock2()">
-        </div>
-        <div class="field-group">
-          <label class="field-label"><span data-i18n="avgSalary">Average gross annual salary</span> (<span id="b2Curr">&euro;</span>)</label>
-          <input type="number" class="field-input" id="b2Salary" value="45000" min="0" step="1000" oninput="calcBlock2()">
-        </div>
-        <div class="field-row">
           <div class="field-group">
-            <label class="field-label" data-i18n="overhead">Employer overhead (%)</label>
-            <input type="number" class="field-input" id="b2Overhead" value="30" min="0" max="80" step="1" oninput="calcBlock2()">
-            <span class="field-hint" data-i18n="overheadHint">Social charges, benefits</span>
+            <label class="field-label" data-i18n="b2SolutionsHintShort">Hours with Dcycle are auto-calculated based on your industry and selected solutions</label>
           </div>
-          <div class="field-group">
-            <label class="field-label" data-i18n="workHoursMonth">Working hours/month</label>
-            <input type="number" class="field-input" id="b2MonthlyWorkH" value="147" min="80" max="220" step="1" oninput="calcBlock2()">
-            <span class="field-hint">EU: ~147h | US/UK: ~173h</span>
+          <div class="no-industry-hint" id="b2NoIndustryHint">
+            <span class="hint-icon">&#9888;</span>
+            <span data-i18n="selectIndustryHint">Select an <strong>industry</strong> at the top to see solution-specific savings benchmarks.</span>
           </div>
-        </div>
-        <div class="field-group">
-          <label class="field-label" data-i18n="monthlyWithout">Monthly hours on ESG (without Dcycle)</label>
-          <input type="number" class="field-input" id="b2MonthlyWithout" value="90" min="0" max="744" oninput="calcBlock2()">
-          <span class="field-hint" data-i18n="perEmployeeMonth">Per employee, per month</span>
-        </div>
+          <div class="checkbox-list" id="b2SolutionsList" style="display:none;"></div>
+          <div class="calc-hours-display" id="b2CalcDisplay" style="display:none;">
+            <div>
+              <div class="calc-hours-label" data-i18n="monthlyWithDcycle">Monthly hours with Dcycle (auto-calculated)</div>
+              <div class="calc-hours-hint" data-i18n="basedOnBenchmarks">Based on selected solutions &amp; industry benchmarks</div>
+            </div>
+            <div class="calc-hours-value" id="b2CalcHours">0 h</div>
+          </div>
 
-        <!-- Benchmark -->
-        <div class="benchmark-card" id="benchmarkCard" style="display:none;">
-          <div class="benchmark-title" id="benchmarkTitle">Industry benchmark</div>
-          <div id="benchmarkRows"></div>
-          <div style="margin-top:8px;font-size:11px;color:var(--gray-50);" data-i18n="basedOnClientData">Based on real Dcycle client data</div>
-        </div>
-
-        <div class="block-results b2">
-          <div class="block-results-title b2" data-i18n="b2ResultsTitle">Internal Team Savings</div>
-          <div class="result-row">
-            <span class="result-label" data-i18n="esgHoursWithout">ESG hours/year (without Dcycle)</span>
-            <span class="result-value b2" id="b2HWithout">0 h</span>
-          </div>
-          <div class="result-row">
-            <span class="result-label" data-i18n="esgHoursWith">ESG hours/year (with Dcycle)</span>
-            <span class="result-value b2" id="b2HWith">0 h</span>
-          </div>
-          <div class="result-row">
-            <span class="result-label" data-i18n="hoursFreed">Hours freed/year</span>
-            <span class="result-value b2" id="b2HFreed">0 h</span>
-          </div>
-          <div class="result-row">
-            <span class="result-label" data-i18n="timeReduction">Time reduction</span>
-            <span class="result-value b2" id="b2Pct">0%</span>
-          </div>
-          <div class="result-row">
-            <span class="result-label" data-i18n="costPerHour">Fully loaded cost/hour</span>
-            <span class="result-value b2" id="b2CostH">0</span>
-          </div>
           <div class="divider"></div>
-          <div class="result-row">
-            <span class="result-label" data-i18n="totalInternalSavings">Total internal savings</span>
-            <span class="result-value b2 highlight" id="b2Total">0</span>
+
+          <div class="field-group">
+            <label class="field-label" data-i18n="employeesESG">Employees involved in ESG tasks</label>
+            <input type="number" class="field-input" id="b2NumEmp" value="2" min="1" max="200" oninput="calcBlock2()">
+          </div>
+          <div class="field-group">
+            <label class="field-label"><span data-i18n="avgSalary">Average gross annual salary</span> (<span id="b2Curr">&euro;</span>)</label>
+            <input type="number" class="field-input" id="b2Salary" value="45000" min="0" step="1000" oninput="calcBlock2()">
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label" data-i18n="overhead">Employer overhead (%)</label>
+              <input type="number" class="field-input" id="b2Overhead" value="30" min="0" max="80" step="1" oninput="calcBlock2()">
+              <span class="field-hint" data-i18n="overheadHint">Social charges, benefits</span>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="workHoursMonth">Working hours/month</label>
+              <input type="number" class="field-input" id="b2MonthlyWorkH" value="147" min="80" max="220" step="1" oninput="calcBlock2()">
+              <span class="field-hint">EU: ~147h | US/UK: ~173h</span>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" data-i18n="monthlyWithout">Monthly hours on ESG (without Dcycle)</label>
+            <input type="number" class="field-input" id="b2MonthlyWithout" value="90" min="0" max="744" oninput="calcBlock2()">
+            <span class="field-hint" data-i18n="perEmployeeMonth">Per employee, per month</span>
+          </div>
+
+          <!-- Benchmark -->
+          <div class="benchmark-card" id="benchmarkCard" style="display:none;">
+            <div class="benchmark-title" id="benchmarkTitle">Industry benchmark</div>
+            <div id="benchmarkRows"></div>
+            <div style="margin-top:8px;font-size:11px;color:var(--gray-50);" data-i18n="basedOnClientData">Based on real Dcycle client data</div>
+          </div>
+
+          <div class="block-results b2">
+            <div class="block-results-title b2" data-i18n="b2ResultsTitle">Internal Team Savings</div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="esgHoursWithout">ESG hours/year (without Dcycle)</span>
+              <span class="result-value b2" id="b2HWithout">0 h</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="esgHoursWith">ESG hours/year (with Dcycle)</span>
+              <span class="result-value b2" id="b2HWith">0 h</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="hoursFreed">Hours freed/year</span>
+              <span class="result-value b2" id="b2HFreed">0 h</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="timeReduction">Time reduction</span>
+              <span class="result-value b2" id="b2Pct">0%</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="costPerHour">Fully loaded cost/hour</span>
+              <span class="result-value b2" id="b2CostH">0</span>
+            </div>
+            <div class="divider"></div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="totalInternalSavings">Total internal savings</span>
+              <span class="result-value b2 highlight" id="b2Total">0</span>
+            </div>
           </div>
         </div>
       </div>
@@ -743,20 +885,10 @@ body {
   </div>
 
   <!-- TOTAL ROI -->
-  <div class="total-roi">
+  <div class="total-roi" id="totalRoiSection" style="display:none;">
     <div class="total-roi-label" data-i18n="estimatedROI">Estimated Annual Return on Investment</div>
     <div class="total-roi-amount" id="totalRoi">0</div>
     <div class="total-roi-subtitle" data-i18n="totalAnnualSavings">Total annual savings by using Dcycle</div>
-    <div class="roi-breakdown">
-      <div class="roi-break-card">
-        <div class="roi-break-label" data-i18n="b1BreakLabel">Block 1 — Consultancy</div>
-        <div class="roi-break-value b1" id="totB1">0</div>
-      </div>
-      <div class="roi-break-card">
-        <div class="roi-break-label" data-i18n="b2BreakLabel">Block 2 — Internal Team</div>
-        <div class="roi-break-value b2" id="totB2">0</div>
-      </div>
-    </div>
   </div>
 
   <!-- LEAD FORM -->
@@ -807,7 +939,7 @@ const LANGS = {
     langName: 'English',
     roiCalculator: 'ROI Calculator',
     heroTitle: 'Calculate your ROI with Dcycle',
-    heroSubtitle: 'Discover how much your company saves in consultancy costs and internal team hours.',
+    heroSubtitle: 'Discover how much your company can save in consultancy costs and internal team hours. These savings have been reported by customers across different industries and countries using Dcycle\'s ESG solutions.',
     country: 'Country:',
     currency: 'Currency:',
     industry: 'Industry:',
@@ -817,6 +949,15 @@ const LANGS = {
     b1Subtitle: 'Time and cost saved by replacing external consultancy work with Dcycle.',
     b2Title: 'Internal Team Efficiency',
     b2Subtitle: "Salary savings from reducing your internal team's ESG workload with Dcycle.",
+    stepSolutionsTitle: 'Select your Dcycle ESG Solutions',
+    stepSolutionsSubtitle: 'Choose which Dcycle solutions your company uses or plans to use.',
+    stepModeTitle: 'How do you currently manage ESG?',
+    stepModeSubtitle: 'Select how your company handles ESG work today to see your personalized savings.',
+    modeConsultingLabel: 'Third-party consulting',
+    modeConsultingDesc: 'We outsource ESG tasks to external consultants',
+    modeInternalLabel: 'Dedicated internal team',
+    modeInternalDesc: 'We have internal employees handling ESG tasks',
+    b2SolutionsHintShort: 'Hours with Dcycle are auto-calculated based on your industry and selected solutions',
     selectSolutions: 'Select your Dcycle solutions',
     b2SolutionsHint: 'Hours with Dcycle are auto-calculated based on your industry and selected solutions',
     selectIndustryHint: 'Select an <strong>industry</strong> at the top to see solution-specific savings benchmarks.',
@@ -887,9 +1028,18 @@ const LANGS = {
     langName: 'Espanol',
     roiCalculator: 'Calculadora ROI',
     heroTitle: 'Calcula tu ROI con Dcycle',
-    heroSubtitle: 'Descubre cuanto ahorra tu empresa en costes de consultoria y horas del equipo interno.',
+    heroSubtitle: 'Descubre cuanto puede ahorrar tu empresa en costes de consultoria y horas del equipo interno. Estos ahorros han sido reportados por clientes de diferentes industrias y paises que usan las soluciones ESG de Dcycle.',
     country: 'Pais:', currency: 'Moneda:', industry: 'Industria:',
     selectCountry: '-- Seleccionar pais --', selectIndustry: '-- Seleccionar industria --',
+    stepSolutionsTitle: 'Selecciona tus Soluciones ESG de Dcycle',
+    stepSolutionsSubtitle: 'Elige que soluciones de Dcycle usa o planea usar tu empresa.',
+    stepModeTitle: 'Como gestionais actualmente el ESG?',
+    stepModeSubtitle: 'Selecciona como tu empresa gestiona el trabajo ESG hoy para ver tus ahorros personalizados.',
+    modeConsultingLabel: 'Consultoria externa',
+    modeConsultingDesc: 'Externalizamos las tareas ESG a consultores externos',
+    modeInternalLabel: 'Equipo interno dedicado',
+    modeInternalDesc: 'Tenemos empleados internos gestionando las tareas ESG',
+    b2SolutionsHintShort: 'Las horas con Dcycle se calculan automaticamente segun tu industria y soluciones seleccionadas',
     b1Title: 'Ahorro en Consultoria',
     b1Subtitle: 'Tiempo y coste ahorrado al sustituir consultoria externa con Dcycle.',
     b2Title: 'Eficiencia del Equipo Interno',
@@ -942,9 +1092,18 @@ const LANGS = {
     langName: 'Francais',
     roiCalculator: 'Calculateur ROI',
     heroTitle: 'Calculez votre ROI avec Dcycle',
-    heroSubtitle: "Decouvrez combien votre entreprise economise en couts de conseil et heures d'equipe interne.",
+    heroSubtitle: "Decouvrez combien votre entreprise peut economiser en couts de conseil et heures d'equipe interne. Ces economies ont ete rapportees par des clients de differentes industries et pays utilisant les solutions ESG de Dcycle.",
     country: 'Pays:', currency: 'Devise:', industry: 'Industrie:',
     selectCountry: '-- Selectionnez un pays --', selectIndustry: '-- Selectionnez une industrie --',
+    stepSolutionsTitle: 'Selectionnez vos Solutions ESG Dcycle',
+    stepSolutionsSubtitle: 'Choisissez les solutions Dcycle que votre entreprise utilise ou prevoit d\'utiliser.',
+    stepModeTitle: 'Comment gerez-vous actuellement l\'ESG?',
+    stepModeSubtitle: 'Selectionnez comment votre entreprise gere le travail ESG aujourd\'hui pour voir vos economies personnalisees.',
+    modeConsultingLabel: 'Conseil externe',
+    modeConsultingDesc: 'Nous externalisons les taches ESG a des consultants externes',
+    modeInternalLabel: 'Equipe interne dediee',
+    modeInternalDesc: 'Nous avons des employes internes qui gerent les taches ESG',
+    b2SolutionsHintShort: 'Les heures avec Dcycle sont calculees automatiquement selon votre industrie et les solutions selectionnees',
     b1Title: 'Economies de Conseil', b1Subtitle: 'Temps et couts economises en remplacant le conseil externe par Dcycle.',
     b2Title: "Efficacite de l'Equipe Interne", b2Subtitle: "Economies salariales en reduisant la charge ESG de votre equipe avec Dcycle.",
     selectSolutions: 'Selectionnez vos solutions Dcycle',
@@ -985,9 +1144,18 @@ const LANGS = {
   de: {
     langName: 'Deutsch',
     roiCalculator: 'ROI-Rechner', heroTitle: 'Berechnen Sie Ihren ROI mit Dcycle',
-    heroSubtitle: 'Erfahren Sie, wie viel Ihr Unternehmen bei Beratungskosten und internen Teamstunden spart.',
+    heroSubtitle: 'Erfahren Sie, wie viel Ihr Unternehmen bei Beratungskosten und internen Teamstunden sparen kann. Diese Einsparungen wurden von Kunden aus verschiedenen Branchen und Landern berichtet, die Dcycles ESG-Losungen nutzen.',
     country: 'Land:', currency: 'Wahrung:', industry: 'Branche:',
     selectCountry: '-- Land wahlen --', selectIndustry: '-- Branche wahlen --',
+    stepSolutionsTitle: 'Wahlen Sie Ihre Dcycle ESG-Losungen',
+    stepSolutionsSubtitle: 'Wahlen Sie, welche Dcycle-Losungen Ihr Unternehmen nutzt oder plant zu nutzen.',
+    stepModeTitle: 'Wie verwalten Sie derzeit ESG?',
+    stepModeSubtitle: 'Wahlen Sie, wie Ihr Unternehmen ESG-Arbeit heute handhabt, um Ihre personlichen Einsparungen zu sehen.',
+    modeConsultingLabel: 'Externe Beratung',
+    modeConsultingDesc: 'Wir lagern ESG-Aufgaben an externe Berater aus',
+    modeInternalLabel: 'Internes Team',
+    modeInternalDesc: 'Wir haben interne Mitarbeiter, die ESG-Aufgaben bearbeiten',
+    b2SolutionsHintShort: 'Stunden mit Dcycle werden automatisch basierend auf Branche und ausgewahlten Losungen berechnet',
     b1Title: 'Beratungseinsparungen', b1Subtitle: 'Zeit- und Kosteneinsparungen durch Ersatz externer Beratung mit Dcycle.',
     b2Title: 'Interne Teameffizienz', b2Subtitle: 'Gehaltseinsparungen durch Reduzierung der ESG-Arbeitslast Ihres Teams mit Dcycle.',
     selectSolutions: 'Wahlen Sie Ihre Dcycle-Losungen',
@@ -1028,9 +1196,18 @@ const LANGS = {
   it: {
     langName: 'Italiano',
     roiCalculator: 'Calcolatore ROI', heroTitle: 'Calcola il tuo ROI con Dcycle',
-    heroSubtitle: 'Scopri quanto risparmia la tua azienda in costi di consulenza e ore del team interno.',
+    heroSubtitle: 'Scopri quanto la tua azienda puo risparmiare in costi di consulenza e ore del team interno. Questi risparmi sono stati segnalati da clienti di diversi settori e paesi che utilizzano le soluzioni ESG di Dcycle.',
     country: 'Paese:', currency: 'Valuta:', industry: 'Settore:',
     selectCountry: '-- Seleziona paese --', selectIndustry: '-- Seleziona settore --',
+    stepSolutionsTitle: 'Seleziona le tue Soluzioni ESG Dcycle',
+    stepSolutionsSubtitle: 'Scegli quali soluzioni Dcycle la tua azienda utilizza o prevede di utilizzare.',
+    stepModeTitle: 'Come gestite attualmente l\'ESG?',
+    stepModeSubtitle: 'Seleziona come la tua azienda gestisce il lavoro ESG oggi per vedere i tuoi risparmi personalizzati.',
+    modeConsultingLabel: 'Consulenza esterna',
+    modeConsultingDesc: 'Esternalizziamo le attivita ESG a consulenti esterni',
+    modeInternalLabel: 'Team interno dedicato',
+    modeInternalDesc: 'Abbiamo dipendenti interni che gestiscono le attivita ESG',
+    b2SolutionsHintShort: 'Le ore con Dcycle sono calcolate automaticamente in base al settore e alle soluzioni selezionate',
     b1Title: 'Risparmi Consulenza', b1Subtitle: 'Tempo e costi risparmiati sostituendo la consulenza esterna con Dcycle.',
     b2Title: 'Efficienza Team Interno', b2Subtitle: 'Risparmi salariali riducendo il carico ESG del tuo team con Dcycle.',
     selectSolutions: 'Seleziona le tue soluzioni Dcycle',
@@ -1070,9 +1247,18 @@ const LANGS = {
   pt: {
     langName: 'Portugues',
     roiCalculator: 'Calculadora ROI', heroTitle: 'Calcule o seu ROI com a Dcycle',
-    heroSubtitle: 'Descubra quanto a sua empresa poupa em custos de consultoria e horas da equipa interna.',
+    heroSubtitle: 'Descubra quanto a sua empresa pode poupar em custos de consultoria e horas da equipa interna. Estas poupancas foram reportadas por clientes de diferentes industrias e paises que utilizam as solucoes ESG da Dcycle.',
     country: 'Pais:', currency: 'Moeda:', industry: 'Industria:',
     selectCountry: '-- Selecionar pais --', selectIndustry: '-- Selecionar industria --',
+    stepSolutionsTitle: 'Selecione as suas Solucoes ESG Dcycle',
+    stepSolutionsSubtitle: 'Escolha as solucoes Dcycle que a sua empresa utiliza ou planeia utilizar.',
+    stepModeTitle: 'Como gere atualmente o ESG?',
+    stepModeSubtitle: 'Selecione como a sua empresa gere o trabalho ESG hoje para ver as suas poupancas personalizadas.',
+    modeConsultingLabel: 'Consultoria externa',
+    modeConsultingDesc: 'Externalizamos as tarefas ESG a consultores externos',
+    modeInternalLabel: 'Equipa interna dedicada',
+    modeInternalDesc: 'Temos funcionarios internos a gerir as tarefas ESG',
+    b2SolutionsHintShort: 'As horas com Dcycle sao calculadas automaticamente com base na industria e solucoes selecionadas',
     b1Title: 'Poupanca em Consultoria', b1Subtitle: 'Tempo e custo poupado ao substituir consultoria externa por Dcycle.',
     b2Title: 'Eficiencia da Equipa Interna', b2Subtitle: 'Poupanca salarial ao reduzir a carga ESG da sua equipa com Dcycle.',
     selectSolutions: 'Selecione as suas solucoes Dcycle',
@@ -1112,9 +1298,18 @@ const LANGS = {
   nl: {
     langName: 'Nederlands',
     roiCalculator: 'ROI Calculator', heroTitle: 'Bereken uw ROI met Dcycle',
-    heroSubtitle: 'Ontdek hoeveel uw bedrijf bespaart op advieskosten en interne teamuren.',
+    heroSubtitle: 'Ontdek hoeveel uw bedrijf kan besparen op advieskosten en interne teamuren. Deze besparingen zijn gerapporteerd door klanten uit verschillende sectoren en landen die Dcycle\'s ESG-oplossingen gebruiken.',
     country: 'Land:', currency: 'Valuta:', industry: 'Sector:',
     selectCountry: '-- Selecteer land --', selectIndustry: '-- Selecteer sector --',
+    stepSolutionsTitle: 'Selecteer uw Dcycle ESG-oplossingen',
+    stepSolutionsSubtitle: 'Kies welke Dcycle-oplossingen uw bedrijf gebruikt of van plan is te gebruiken.',
+    stepModeTitle: 'Hoe beheert u momenteel ESG?',
+    stepModeSubtitle: 'Selecteer hoe uw bedrijf ESG-werk vandaag aanpakt om uw gepersonaliseerde besparingen te zien.',
+    modeConsultingLabel: 'Extern advies',
+    modeConsultingDesc: 'Wij besteden ESG-taken uit aan externe adviseurs',
+    modeInternalLabel: 'Intern team',
+    modeInternalDesc: 'Wij hebben interne medewerkers die ESG-taken beheren',
+    b2SolutionsHintShort: 'Uren met Dcycle worden automatisch berekend op basis van sector en geselecteerde oplossingen',
     b1Title: 'Adviesbesparingen', b1Subtitle: 'Tijd- en kostenbesparing door extern advies te vervangen door Dcycle.',
     b2Title: 'Interne Team Efficientie', b2Subtitle: 'Salaris besparing door ESG-werklast van uw team te verminderen met Dcycle.',
     selectSolutions: 'Selecteer uw Dcycle-oplossingen',
@@ -1199,6 +1394,7 @@ const CURRENCY_SYMBOLS = { EUR:'\u20ac', GBP:'\u00a3', USD:'$', CHF:'CHF', SEK:'
 
 // ===================== STATE =====================
 let currentCountry = '', currentIndustry = '', currentLang = 'en', currentCurrency = 'EUR';
+let currentMode = ''; // 'b1' or 'b2'
 let b1Val = 0, b2Val = 0;
 
 // ===================== i18n ENGINE =====================
@@ -1241,12 +1437,28 @@ function buildB1Solutions() {
     const s = SOLUTIONS_DATA[key];
     const pct = s.b1Manual > 0 ? Math.round(((s.b1Manual - s.b1Dcycle) / s.b1Manual) * 100) : 0;
     list.innerHTML += `<label class="checkbox-item" data-manual="${s.b1Manual}" data-dcycle="${s.b1Dcycle}" data-key="${key}">
-      <input type="checkbox" onchange="toggleCB(this); calcBlock1()">
+      <input type="checkbox" onchange="toggleCB(this); onSharedSolutionChange()">
       <span class="cb-label">${t('sol_'+key)}</span>
       <span class="cb-hours">${s.b1Manual} \u2192 ${s.b1Dcycle} h</span>
       <span class="cb-savings">-${pct}%</span>
     </label>`;
   });
+}
+function onSharedSolutionChange() {
+  // Sync shared solutions to B2 solutions list: check/uncheck matching keys
+  const sharedChecked = new Set();
+  document.querySelectorAll('#solutionsList .checkbox-item').forEach(item => {
+    if (item.querySelector('input').checked) sharedChecked.add(item.dataset.key);
+  });
+  document.querySelectorAll('#b2SolutionsList .checkbox-item').forEach(item => {
+    const cb = item.querySelector('input');
+    const shouldCheck = sharedChecked.has(item.dataset.key);
+    if (cb.checked !== shouldCheck) {
+      cb.checked = shouldCheck;
+      item.classList.toggle('checked', shouldCheck);
+    }
+  });
+  calcAll();
 }
 
 // ===================== HELPERS =====================
@@ -1333,16 +1545,34 @@ function onIndustryChange() {
   buildB2Solutions();
   calcBlock2();
 }
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('modeB1').classList.toggle('active', mode==='b1');
+  document.getElementById('modeB2').classList.toggle('active', mode==='b2');
+  document.getElementById('panelB1').classList.toggle('visible', mode==='b1');
+  document.getElementById('panelB2').classList.toggle('visible', mode==='b2');
+  document.getElementById('totalRoiSection').style.display = mode ? 'block' : 'none';
+  if (mode==='b1') calcBlock1();
+  else if (mode==='b2') calcBlock2();
+  updateTotal();
+}
+
 function buildB2Solutions() {
   const solList = document.getElementById('b2SolutionsList');
   if (!currentIndustry || !INDUSTRY_DATA[currentIndustry]) { solList.innerHTML=''; return; }
   const ind = INDUSTRY_DATA[currentIndustry];
+  // Get which solutions are checked in the shared Step 1 list
+  const sharedChecked = new Set();
+  document.querySelectorAll('#solutionsList .checkbox-item').forEach(item => {
+    if (item.querySelector('input').checked) sharedChecked.add(item.dataset.key);
+  });
   let html = '';
   SOLUTION_KEYS.forEach(key => {
     const s = ind.solutions[key]; if (!s) return;
     const pct = s.before>0 ? Math.round(((s.before-s.after)/s.before)*100) : 0;
-    html += `<label class="checkbox-item b2-solution" data-key="${key}" data-before="${s.before}" data-after="${s.after}">
-      <input type="checkbox" onchange="toggleCB(this); calcBlock2()">
+    const isChecked = sharedChecked.has(key);
+    html += `<label class="checkbox-item b2-solution${isChecked?' checked':''}" data-key="${key}" data-before="${s.before}" data-after="${s.after}">
+      <input type="checkbox"${isChecked?' checked':''} onchange="toggleCB(this); calcBlock2()">
       <span class="cb-label">${t('sol_'+key)}</span>
       <span class="cb-hours">${s.before} \u2192 ${s.after} h/mo</span>
       <span class="cb-savings">-${pct}%</span>
@@ -1400,10 +1630,10 @@ function calcBlock2() {
   updateTotal();
 }
 function updateTotal() {
-  const total = b1Val + b2Val;
+  let total = 0;
+  if (currentMode === 'b1') total = b1Val;
+  else if (currentMode === 'b2') total = b2Val;
   document.getElementById('totalRoi').textContent = fmt(Math.round(total));
-  document.getElementById('totB1').textContent = fmt(Math.round(b1Val));
-  document.getElementById('totB2').textContent = fmt(Math.round(b2Val));
 }
 function calcAll() { calcBlock1(); calcBlock2(); }
 
@@ -1459,88 +1689,94 @@ function generatePDF() {
     y+=4; doc.setDrawColor(41,71,254); doc.setLineWidth(0.5); doc.line(margin,y,W-margin,y); y+=8;
 
     // Total ROI banner
+    const totalVal = currentMode === 'b1' ? b1Val : b2Val;
     doc.setFillColor(240,243,255); doc.roundedRect(margin,y,cw,22,4,4,'F');
     doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(41,71,254);
     doc.text(pdfSafe(t('estimatedROI')).toUpperCase(),margin+8,y+9);
     doc.setFontSize(18);
-    doc.text(fmtPdf(Math.round(b1Val+b2Val)),W-margin-8,y+14,{align:'right'}); y+=30;
+    doc.text(fmtPdf(Math.round(totalVal)),W-margin-8,y+14,{align:'right'}); y+=26;
 
-    // Block 1
-    doc.setTextColor(99,102,241); doc.setFont('helvetica','bold'); doc.setFontSize(12);
-    doc.text(pdfSafe(t('b1ResultsTitle')),margin,y); y+=6;
-    const b1Rows=[];
-    document.querySelectorAll('#solutionsList .checkbox-item').forEach(item => {
-      if(item.querySelector('input').checked){
-        const label=pdfSafe(item.querySelector('.cb-label').textContent);
-        const m=item.dataset.manual; const d=item.dataset.dcycle;
-        const s=parseInt(m)-parseInt(d);
-        const rate=parseFloat(document.getElementById('consultancyRate').value)||0;
-        b1Rows.push([label,m+'h',d+'h',s+'h',fmtPdf(s*rate)]);
+    // Mode label
+    doc.setTextColor(100,100,100); doc.setFontSize(9); doc.setFont('helvetica','normal');
+    doc.text(currentMode==='b1' ? pdfSafe(t('modeConsultingLabel')) : pdfSafe(t('modeInternalLabel')), margin, y); y+=8;
+
+    if (currentMode === 'b1') {
+      // Block 1: Consultancy
+      doc.setTextColor(99,102,241); doc.setFont('helvetica','bold'); doc.setFontSize(12);
+      doc.text(pdfSafe(t('b1ResultsTitle')),margin,y); y+=6;
+      const b1Rows=[];
+      document.querySelectorAll('#solutionsList .checkbox-item').forEach(item => {
+        if(item.querySelector('input').checked){
+          const label=pdfSafe(item.querySelector('.cb-label').textContent);
+          const m=item.dataset.manual; const d=item.dataset.dcycle;
+          const s=parseInt(m)-parseInt(d);
+          const rate=parseFloat(document.getElementById('consultancyRate').value)||0;
+          b1Rows.push([label,m+'h',d+'h',s+'h',fmtPdf(s*rate)]);
+        }
+      });
+      if(b1Rows.length>0){
+        doc.autoTable({startY:y,
+          head:[[pdfSafe(t('pdfSolution')),pdfSafe(t('pdfManual')),pdfSafe(t('pdfDcycle')),pdfSafe(t('pdfSaved')),pdfSafe(t('pdfSavings'))]],
+          body:b1Rows,theme:'grid',
+          headStyles:{fillColor:[99,102,241],fontSize:8,cellPadding:2},
+          bodyStyles:{fontSize:8,cellPadding:2},
+          columnStyles:{0:{cellWidth:60}},margin:{left:margin,right:margin}});
+        y=doc.lastAutoTable.finalY+3;
       }
-    });
-    if(b1Rows.length>0){
+      doc.setTextColor(99,102,241); doc.setFont('helvetica','bold'); doc.setFontSize(10);
+      doc.text(pdfSafe(t('totalSavings'))+': '+fmtPdf(Math.round(b1Val)),W-margin,y,{align:'right'}); y+=10;
+    } else {
+      // Block 2: Internal Team
+      doc.setTextColor(14,165,233); doc.setFontSize(12);
+      doc.text(pdfSafe(t('b2ResultsTitle')),margin,y); y+=6;
+      const b2SolRows=[];
+      document.querySelectorAll('#b2SolutionsList .checkbox-item').forEach(item=>{
+        if(item.querySelector('input').checked){
+          b2SolRows.push([pdfSafe(item.querySelector('.cb-label').textContent),item.dataset.before+' h/mo',item.dataset.after+' h/mo',(parseInt(item.dataset.before)-parseInt(item.dataset.after))+' h/mo']);
+        }
+      });
+      const moW=document.getElementById('b2MonthlyWithout').value;
+      const moD=document.getElementById('b2CalcHours').textContent.replace(' h/mo','');
+      const b2Rows=[
+        [pdfSafe(t('employeesESG')),document.getElementById('b2NumEmp').value],
+        [pdfSafe(t('avgSalary')),fmtPdf(parseFloat(document.getElementById('b2Salary').value))],
+        [pdfSafe(t('overhead')),document.getElementById('b2Overhead').value+'%'],
+        [pdfSafe(t('monthlyWithout')),moW+'h'],
+        [pdfSafe(t('monthlyWithDcycle')),moD+'h'],
+        [pdfSafe(t('hoursFreed')),pdfSafe(document.getElementById('b2HFreed').textContent)],
+        [pdfSafe(t('timeReduction')),pdfSafe(document.getElementById('b2Pct').textContent)]
+      ];
       doc.autoTable({startY:y,
-        head:[[pdfSafe(t('pdfSolution')),pdfSafe(t('pdfManual')),pdfSafe(t('pdfDcycle')),pdfSafe(t('pdfSaved')),pdfSafe(t('pdfSavings'))]],
-        body:b1Rows,theme:'grid',
-        headStyles:{fillColor:[99,102,241],fontSize:8,cellPadding:2},
-        bodyStyles:{fontSize:8,cellPadding:2},
-        columnStyles:{0:{cellWidth:60}},margin:{left:margin,right:margin}});
-      y=doc.lastAutoTable.finalY+3;
-    }
-    doc.setTextColor(99,102,241); doc.setFont('helvetica','bold'); doc.setFontSize(10);
-    doc.text(pdfSafe(t('totalSavings'))+': '+fmtPdf(Math.round(b1Val)),W-margin,y,{align:'right'}); y+=10;
-
-    // Block 2
-    doc.setTextColor(14,165,233); doc.setFontSize(12);
-    doc.text(pdfSafe(t('b2ResultsTitle')),margin,y); y+=6;
-    const b2SolRows=[];
-    document.querySelectorAll('#b2SolutionsList .checkbox-item').forEach(item=>{
-      if(item.querySelector('input').checked){
-        b2SolRows.push([pdfSafe(item.querySelector('.cb-label').textContent),item.dataset.before+' h/mo',item.dataset.after+' h/mo',(parseInt(item.dataset.before)-parseInt(item.dataset.after))+' h/mo']);
-      }
-    });
-    const moW=document.getElementById('b2MonthlyWithout').value;
-    const moD=document.getElementById('b2CalcHours').textContent.replace(' h/mo','');
-    const b2Rows=[
-      [pdfSafe(t('employeesESG')),document.getElementById('b2NumEmp').value],
-      [pdfSafe(t('avgSalary')),fmtPdf(parseFloat(document.getElementById('b2Salary').value))],
-      [pdfSafe(t('overhead')),document.getElementById('b2Overhead').value+'%'],
-      [pdfSafe(t('monthlyWithout')),moW+'h'],
-      [pdfSafe(t('monthlyWithDcycle')),moD+'h'],
-      [pdfSafe(t('hoursFreed')),pdfSafe(document.getElementById('b2HFreed').textContent)],
-      [pdfSafe(t('timeReduction')),pdfSafe(document.getElementById('b2Pct').textContent)]
-    ];
-    doc.autoTable({startY:y,
-      head:[[pdfSafe(t('pdfMetric')),pdfSafe(t('pdfValue'))]],
-      body:b2Rows,theme:'grid',
-      headStyles:{fillColor:[14,165,233],fontSize:8,cellPadding:2},
-      bodyStyles:{fontSize:8,cellPadding:2},
-      columnStyles:{0:{cellWidth:80}},margin:{left:margin,right:margin}});
-    y=doc.lastAutoTable.finalY+3;
-
-    if(b2SolRows.length>0){
-      doc.setTextColor(14,165,233);doc.setFontSize(9);doc.setFont('helvetica','bold');
-      doc.text(pdfSafe(t('selectSolutions'))+':',margin,y+2);y+=5;
-      doc.autoTable({startY:y,
-        head:[[pdfSafe(t('pdfSolution')),pdfSafe(t('pdfBefore')),pdfSafe(t('pdfWithDcycle')),pdfSafe(t('pdfSaved'))]],
-        body:b2SolRows,theme:'grid',
+        head:[[pdfSafe(t('pdfMetric')),pdfSafe(t('pdfValue'))]],
+        body:b2Rows,theme:'grid',
         headStyles:{fillColor:[14,165,233],fontSize:8,cellPadding:2},
         bodyStyles:{fontSize:8,cellPadding:2},
-        columnStyles:{0:{cellWidth:60}},margin:{left:margin,right:margin}});
+        columnStyles:{0:{cellWidth:80}},margin:{left:margin,right:margin}});
       y=doc.lastAutoTable.finalY+3;
+
+      if(b2SolRows.length>0){
+        doc.setTextColor(14,165,233);doc.setFontSize(9);doc.setFont('helvetica','bold');
+        doc.text(pdfSafe(t('selectSolutions'))+':',margin,y+2);y+=5;
+        doc.autoTable({startY:y,
+          head:[[pdfSafe(t('pdfSolution')),pdfSafe(t('pdfBefore')),pdfSafe(t('pdfWithDcycle')),pdfSafe(t('pdfSaved'))]],
+          body:b2SolRows,theme:'grid',
+          headStyles:{fillColor:[14,165,233],fontSize:8,cellPadding:2},
+          bodyStyles:{fontSize:8,cellPadding:2},
+          columnStyles:{0:{cellWidth:60}},margin:{left:margin,right:margin}});
+        y=doc.lastAutoTable.finalY+3;
+      }
+      doc.setTextColor(14,165,233);doc.setFont('helvetica','bold');doc.setFontSize(10);
+      doc.text(pdfSafe(t('totalInternalSavings'))+': '+fmtPdf(Math.round(b2Val)),W-margin,y,{align:'right'}); y+=10;
     }
-    doc.setTextColor(14,165,233);doc.setFont('helvetica','bold');doc.setFontSize(10);
-    doc.text(pdfSafe(t('totalInternalSavings'))+': '+fmtPdf(Math.round(b2Val)),W-margin,y,{align:'right'}); y+=12;
 
     // Final ROI box
+    y+=2;
     if(y>250){doc.addPage();y=20;}
     doc.setFillColor(41,71,254);doc.roundedRect(margin,y,cw,26,4,4,'F');
     doc.setTextColor(255,255,255);doc.setFontSize(10);doc.setFont('helvetica','normal');
     doc.text(pdfSafe(t('estimatedROI')).toUpperCase(),margin+8,y+10);
     doc.setFontSize(20);doc.setFont('helvetica','bold');
-    doc.text(fmtPdf(Math.round(b1Val+b2Val)),W-margin-8,y+17,{align:'right'});y+=34;
-    doc.setTextColor(100,100,100);doc.setFontSize(8);doc.setFont('helvetica','normal');
-    doc.text(pdfSafe(t('b1BreakLabel'))+': '+fmtPdf(Math.round(b1Val))+'  |  '+pdfSafe(t('b2BreakLabel'))+': '+fmtPdf(Math.round(b2Val)),W/2,y,{align:'center'});
+    doc.text(fmtPdf(Math.round(totalVal)),W-margin-8,y+17,{align:'right'});y+=34;
 
     // Footer
     doc.setFontSize(7);doc.setTextColor(150,150,150);
