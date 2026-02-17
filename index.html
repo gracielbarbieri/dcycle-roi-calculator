@@ -682,17 +682,14 @@ body {
         <option value="" data-i18n="selectCountry">-- Select country --</option>
       </select>
     </div>
+    <div class="currency-badge" id="currencyBadge">💱 <span id="currencyLabel">€ EUR</span></div>
     <div class="filter-group">
-      <label for="currencySelect" data-i18n="currency">Currency:</label>
-      <select id="currencySelect" class="filter-select small" onchange="onCurrencyChange()">
-        <option value="EUR">&euro; EUR</option>
-        <option value="GBP">&pound; GBP</option>
-        <option value="USD">$ USD</option>
-        <option value="CHF">CHF</option>
-        <option value="SEK">SEK</option>
-        <option value="NOK">NOK</option>
-        <option value="DKK">DKK</option>
-        <option value="HUF">HUF</option>
+      <label for="sizeSelect" data-i18n="companySize">Company size:</label>
+      <select id="sizeSelect" class="filter-select" onchange="onSizeChange()">
+        <option value="" data-i18n="selectSize">-- Select size --</option>
+        <option value="small" data-i18n="size_small">250 – 1,000 employees</option>
+        <option value="medium" data-i18n="size_medium">1,000 – 5,000 employees</option>
+        <option value="large" data-i18n="size_large">5,000+ employees</option>
       </select>
     </div>
     <div class="filter-group">
@@ -1030,38 +1027,41 @@ const LANGS = {
     ind_finance: 'Financial Services', ind_other: 'Other',
     // Solutions
     sol_ghg: 'Climate Change — GHG Emissions', sol_ecovadis: 'Ecovadis', sol_lca: 'Life Cycle Analysis (LCA)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Procurement / Supply Chain', sol_einf: 'EINF / Non-Financial Reporting',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Procurement / Supply Chain', sol_glec: 'GLEC Framework — Transport Emissions', sol_einf: 'EINF / Non-Financial Reporting',
+    companySize: 'Company size:', selectSize: '-- Select size --',
+    size_small: '250 – 1,000 employees', size_medium: '1,000 – 5,000 employees', size_large: '5,000+ employees',
+    pdfCompanySize: 'Company size',
   },
   es: {
-    langName: 'Espanol',
+    langName: 'Español',
     roiCalculator: 'Calculadora ROI',
     heroTitle: 'Calcula tu ROI con Dcycle',
-    heroSubtitle: 'Descubre cuanto puede ahorrar tu empresa en costes de consultoria y horas del equipo interno. Estos ahorros han sido reportados por clientes de diferentes industrias y paises que usan las soluciones ESG de Dcycle.',
-    country: 'Pais:', currency: 'Moneda:', industry: 'Industria:',
-    selectCountry: '-- Seleccionar pais --', selectIndustry: '-- Seleccionar industria --',
+    heroSubtitle: 'Descubre cuánto puede ahorrar tu empresa en costes de consultoría y horas del equipo interno. Estos ahorros han sido reportados por clientes de diferentes industrias y países que usan las soluciones ESG de Dcycle.',
+    country: 'País:', currency: 'Moneda:', industry: 'Industria:',
+    selectCountry: '-- Seleccionar país --', selectIndustry: '-- Seleccionar industria --',
     stepSolutionsTitle: 'Selecciona tus Soluciones ESG de Dcycle',
-    stepSolutionsSubtitle: 'Elige que soluciones de Dcycle usa o planea usar tu empresa.',
-    stepModeTitle: 'Como gestionais actualmente el ESG?',
-    stepModeSubtitle: 'Selecciona como tu empresa gestiona el trabajo ESG hoy para ver tus ahorros personalizados.',
-    modeConsultingLabel: 'Consultoria externa',
+    stepSolutionsSubtitle: 'Elige qué soluciones de Dcycle usa o planea usar tu empresa.',
+    stepModeTitle: '¿Cómo gestionáis actualmente el ESG?',
+    stepModeSubtitle: 'Selecciona cómo tu empresa gestiona el trabajo ESG hoy para ver tus ahorros personalizados.',
+    modeConsultingLabel: 'Consultoría externa',
     modeConsultingDesc: 'Externalizamos las tareas ESG a consultores externos',
     modeInternalLabel: 'Equipo interno dedicado',
     modeInternalDesc: 'Tenemos empleados internos gestionando las tareas ESG',
-    b1SelectedSolutions: 'Soluciones seleccionadas — comparacion de horas',
-    noSolutionsSelected: 'Selecciona soluciones en el Paso 1 para ver la comparacion de horas.',
-    b2SolutionsHintShort: 'Las horas con Dcycle se calculan automaticamente segun tu industria y soluciones seleccionadas',
-    b1Title: 'Ahorro en Consultoria',
-    b1Subtitle: 'Tiempo y coste ahorrado al sustituir consultoria externa con Dcycle.',
+    b1SelectedSolutions: 'Soluciones seleccionadas — comparación de horas',
+    noSolutionsSelected: 'Selecciona soluciones en el Paso 1 para ver la comparación de horas.',
+    b2SolutionsHintShort: 'Las horas con Dcycle se calculan automáticamente según tu industria y soluciones seleccionadas',
+    b1Title: 'Ahorro en Consultoría',
+    b1Subtitle: 'Tiempo y coste ahorrado al sustituir consultoría externa con Dcycle.',
     b2Title: 'Eficiencia del Equipo Interno',
     b2Subtitle: 'Ahorro salarial al reducir la carga ESG de tu equipo interno con Dcycle.',
     selectSolutions: 'Selecciona tus soluciones Dcycle',
-    b2SolutionsHint: 'Las horas con Dcycle se calculan automaticamente segun tu industria y soluciones seleccionadas',
-    selectIndustryHint: 'Selecciona una <strong>industria</strong> arriba para ver los benchmarks de ahorro por solucion.',
+    b2SolutionsHint: 'Las horas con Dcycle se calculan automáticamente según tu industria y soluciones seleccionadas',
+    selectIndustryHint: 'Selecciona una <strong>industria</strong> arriba para ver los benchmarks de ahorro por solución.',
     monthlyWithDcycle: 'Horas mensuales con Dcycle (auto-calculado)',
     basedOnBenchmarks: 'Basado en soluciones seleccionadas y benchmarks de la industria',
-    consultancyRate: 'Tarifa horaria de consultoria',
-    consultancyCostH: 'Coste consultoria/hora',
-    consultancyHint: 'Tarifa media de consultoria ESG/sostenibilidad',
+    consultancyRate: 'Tarifa horaria de consultoría',
+    consultancyCostH: 'Coste consultoría/hora',
+    consultancyHint: 'Tarifa media de consultoría ESG/sostenibilidad',
     employeesESG: 'Empleados involucrados en tareas ESG',
     avgSalary: 'Salario bruto anual medio',
     overhead: 'Coste empresa (%)',
@@ -1070,113 +1070,119 @@ const LANGS = {
     monthlyWithout: 'Horas mensuales ESG (sin Dcycle)',
     perEmployeeMonth: 'Por empleado, por mes',
     basedOnClientData: 'Basado en datos reales de clientes Dcycle',
-    b1ResultsTitle: 'Ahorro en Consultoria',
-    manualHoursYear: 'Horas manuales/ano', hoursDcycleYear: 'Horas con Dcycle/ano',
-    hoursSavedYear: 'Horas ahorradas/ano', totalSavings: 'Ahorro total',
+    b1ResultsTitle: 'Ahorro en Consultoría',
+    manualHoursYear: 'Horas manuales/año', hoursDcycleYear: 'Horas con Dcycle/año',
+    hoursSavedYear: 'Horas ahorradas/año', totalSavings: 'Ahorro total',
     b2ResultsTitle: 'Ahorro Equipo Interno',
-    esgHoursWithout: 'Horas ESG/ano (sin Dcycle)', esgHoursWith: 'Horas ESG/ano (con Dcycle)',
-    hoursFreed: 'Horas liberadas/ano', costPerHour: 'Coste cargado/hora',
-    timeReduction: 'Reduccion de tiempo', totalInternalSavings: 'Ahorro interno total',
-    estimatedROI: 'Retorno de Inversion Anual Estimado',
+    esgHoursWithout: 'Horas ESG/año (sin Dcycle)', esgHoursWith: 'Horas ESG/año (con Dcycle)',
+    hoursFreed: 'Horas liberadas/año', costPerHour: 'Coste cargado/hora',
+    timeReduction: 'Reducción de tiempo', totalInternalSavings: 'Ahorro interno total',
+    estimatedROI: 'Retorno de Inversión Anual Estimado',
     totalAnnualSavings: 'Ahorro anual total usando Dcycle',
-    b1BreakLabel: 'Bloque 1 — Consultoria', b2BreakLabel: 'Bloque 2 — Equipo Interno',
+    b1BreakLabel: 'Bloque 1 — Consultoría', b2BreakLabel: 'Bloque 2 — Equipo Interno',
     leadTitle: 'Descarga tu informe ROI personalizado',
-    leadSubtitle: 'Obtiene un PDF con el resumen de ahorro para compartir con tu equipo.',
-    fullName: 'Nombre completo *', company: 'Empresa *', email: 'Email *', phone: 'Telefono',
+    leadSubtitle: 'Obtén un PDF con el resumen de ahorro para compartir con tu equipo.',
+    fullName: 'Nombre completo *', company: 'Empresa *', email: 'Email *', phone: 'Teléfono',
     downloadPDF: 'Descargar Informe ROI (PDF)',
-    disclaimer: 'Tu informacion solo se usa para generar el informe. Dcycle respeta tu privacidad.',
-    reportDownloaded: 'Informe descargado!', checkDownloads: 'Revisa tu carpeta de descargas.',
+    disclaimer: 'Tu información solo se usa para generar el informe. Dcycle respeta tu privacidad.',
+    reportDownloaded: '¡Informe descargado!', checkDownloads: 'Revisa tu carpeta de descargas.',
     fillFields: 'Por favor completa nombre, empresa y email.',
-    pdfPreparedFor: 'Preparado para', pdfCountry: 'Pais', pdfIndustry: 'Industria', pdfGenerated: 'Generado',
-    pdfSolution: 'Solucion', pdfManual: 'Manual', pdfDcycle: 'Dcycle', pdfSaved: 'Ahorrado', pdfSavings: 'Ahorro',
-    pdfMetric: 'Metrica', pdfValue: 'Valor', pdfBefore: 'Antes', pdfWithDcycle: 'Con Dcycle',
+    pdfPreparedFor: 'Preparado para', pdfCountry: 'País', pdfIndustry: 'Industria', pdfGenerated: 'Generado',
+    pdfSolution: 'Solución', pdfManual: 'Manual', pdfDcycle: 'Dcycle', pdfSaved: 'Ahorrado', pdfSavings: 'Ahorro',
+    pdfMetric: 'Métrica', pdfValue: 'Valor', pdfBefore: 'Antes', pdfWithDcycle: 'Con Dcycle',
     pdfFooter: 'Este informe fue generado por la Calculadora ROI de Dcycle. Las cifras son estimaciones basadas en datos del usuario y benchmarks de la industria.',
-    ind_food: 'Alimentacion y Bebidas', ind_health: 'Salud / Multi-sede', ind_industrial: 'Industrial / Manufactura',
-    ind_logistics: 'Logistica y Transporte', ind_chemical: 'Quimico / Farmaceutico', ind_retail: 'Retail y Gran Consumo',
-    ind_energy: 'Energia y Utilities', ind_construction: 'Construccion e Inmobiliario', ind_tech: 'Tecnologia y Servicios',
+    ind_food: 'Alimentación y Bebidas', ind_health: 'Salud / Multi-sede', ind_industrial: 'Industrial / Manufactura',
+    ind_logistics: 'Logística y Transporte', ind_chemical: 'Químico / Farmacéutico', ind_retail: 'Retail y Gran Consumo',
+    ind_energy: 'Energía y Utilities', ind_construction: 'Construcción e Inmobiliario', ind_tech: 'Tecnología y Servicios',
     ind_finance: 'Servicios Financieros', ind_other: 'Otro',
-    sol_ghg: 'Cambio Climatico — Emisiones GEI', sol_ecovadis: 'Ecovadis', sol_lca: 'Analisis de Ciclo de Vida (ACV)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Aprovisionamiento / Cadena de Suministro', sol_einf: 'EINF / Informacion No Financiera',
+    sol_ghg: 'Cambio Climático — Emisiones GEI', sol_ecovadis: 'Ecovadis', sol_lca: 'Análisis de Ciclo de Vida (ACV)',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Aprovisionamiento / Cadena de Suministro', sol_glec: 'Marco GLEC — Emisiones de Transporte', sol_einf: 'EINF / Información No Financiera',
+    companySize: 'Tamaño empresa:', selectSize: '-- Seleccionar tamaño --',
+    size_small: '250 – 1.000 empleados', size_medium: '1.000 – 5.000 empleados', size_large: '5.000+ empleados',
+    pdfCompanySize: 'Tamaño empresa',
   },
   fr: {
-    langName: 'Francais',
+    langName: 'Français',
     roiCalculator: 'Calculateur ROI',
     heroTitle: 'Calculez votre ROI avec Dcycle',
-    heroSubtitle: "Decouvrez combien votre entreprise peut economiser en couts de conseil et heures d'equipe interne. Ces economies ont ete rapportees par des clients de differentes industries et pays utilisant les solutions ESG de Dcycle.",
+    heroSubtitle: "Découvrez combien votre entreprise peut économiser en coûts de conseil et heures d'équipe interne. Ces économies ont été rapportées par des clients de différentes industries et pays utilisant les solutions ESG de Dcycle.",
     country: 'Pays:', currency: 'Devise:', industry: 'Industrie:',
-    selectCountry: '-- Selectionnez un pays --', selectIndustry: '-- Selectionnez une industrie --',
-    stepSolutionsTitle: 'Selectionnez vos Solutions ESG Dcycle',
-    stepSolutionsSubtitle: 'Choisissez les solutions Dcycle que votre entreprise utilise ou prevoit d\'utiliser.',
-    stepModeTitle: 'Comment gerez-vous actuellement l\'ESG?',
-    stepModeSubtitle: 'Selectionnez comment votre entreprise gere le travail ESG aujourd\'hui pour voir vos economies personnalisees.',
+    selectCountry: '-- Sélectionnez un pays --', selectIndustry: '-- Sélectionnez une industrie --',
+    stepSolutionsTitle: 'Sélectionnez vos Solutions ESG Dcycle',
+    stepSolutionsSubtitle: 'Choisissez les solutions Dcycle que votre entreprise utilise ou prévoit d\'utiliser.',
+    stepModeTitle: 'Comment gérez-vous actuellement l\'ESG?',
+    stepModeSubtitle: 'Sélectionnez comment votre entreprise gère le travail ESG aujourd\'hui pour voir vos économies personnalisées.',
     modeConsultingLabel: 'Conseil externe',
-    modeConsultingDesc: 'Nous externalisons les taches ESG a des consultants externes',
-    modeInternalLabel: 'Equipe interne dediee',
-    modeInternalDesc: 'Nous avons des employes internes qui gerent les taches ESG',
-    b1SelectedSolutions: 'Solutions selectionnees — comparaison des heures',
-    noSolutionsSelected: 'Selectionnez des solutions a l\'etape 1 pour voir la comparaison des heures.',
-    b2SolutionsHintShort: 'Les heures avec Dcycle sont calculees automatiquement selon votre industrie et les solutions selectionnees',
-    b1Title: 'Economies de Conseil', b1Subtitle: 'Temps et couts economises en remplacant le conseil externe par Dcycle.',
-    b2Title: "Efficacite de l'Equipe Interne", b2Subtitle: "Economies salariales en reduisant la charge ESG de votre equipe avec Dcycle.",
-    selectSolutions: 'Selectionnez vos solutions Dcycle',
-    b2SolutionsHint: 'Les heures avec Dcycle sont calculees automatiquement selon votre industrie et les solutions selectionnees',
-    selectIndustryHint: 'Selectionnez une <strong>industrie</strong> en haut pour voir les benchmarks par solution.',
-    monthlyWithDcycle: 'Heures mensuelles avec Dcycle (auto-calcule)', basedOnBenchmarks: 'Base sur les solutions selectionnees et benchmarks industrie',
-    consultancyRate: 'Tarif horaire conseil', consultancyCostH: 'Cout conseil/heure', consultancyHint: 'Tarif moyen conseil ESG/durabilite',
-    employeesESG: 'Employes impliques dans les taches ESG', avgSalary: 'Salaire brut annuel moyen',
-    overhead: "Charges patronales (%)", overheadHint: 'Securite sociale, avantages', workHoursMonth: 'Heures de travail/mois',
-    monthlyWithout: 'Heures mensuelles ESG (sans Dcycle)', perEmployeeMonth: 'Par employe, par mois',
-    basedOnClientData: 'Base sur des donnees reelles de clients Dcycle',
-    b1ResultsTitle: 'Economies Conseil', manualHoursYear: 'Heures manuelles/an',
-    hoursDcycleYear: 'Heures avec Dcycle/an', hoursSavedYear: 'Heures economisees/an', totalSavings: 'Economies totales',
-    b2ResultsTitle: "Economies Equipe Interne",
+    modeConsultingDesc: 'Nous externalisons les tâches ESG à des consultants externes',
+    modeInternalLabel: 'Équipe interne dédiée',
+    modeInternalDesc: 'Nous avons des employés internes qui gèrent les tâches ESG',
+    b1SelectedSolutions: 'Solutions sélectionnées — comparaison des heures',
+    noSolutionsSelected: 'Sélectionnez des solutions à l\'étape 1 pour voir la comparaison des heures.',
+    b2SolutionsHintShort: 'Les heures avec Dcycle sont calculées automatiquement selon votre industrie et les solutions sélectionnées',
+    b1Title: 'Économies de Conseil', b1Subtitle: 'Temps et coûts économisés en remplaçant le conseil externe par Dcycle.',
+    b2Title: "Efficacité de l'Équipe Interne", b2Subtitle: "Économies salariales en réduisant la charge ESG de votre équipe avec Dcycle.",
+    selectSolutions: 'Sélectionnez vos solutions Dcycle',
+    b2SolutionsHint: 'Les heures avec Dcycle sont calculées automatiquement selon votre industrie et les solutions sélectionnées',
+    selectIndustryHint: 'Sélectionnez une <strong>industrie</strong> en haut pour voir les benchmarks par solution.',
+    monthlyWithDcycle: 'Heures mensuelles avec Dcycle (auto-calculé)', basedOnBenchmarks: 'Basé sur les solutions sélectionnées et benchmarks industrie',
+    consultancyRate: 'Tarif horaire conseil', consultancyCostH: 'Coût conseil/heure', consultancyHint: 'Tarif moyen conseil ESG/durabilité',
+    employeesESG: 'Employés impliqués dans les tâches ESG', avgSalary: 'Salaire brut annuel moyen',
+    overhead: "Charges patronales (%)", overheadHint: 'Sécurité sociale, avantages', workHoursMonth: 'Heures de travail/mois',
+    monthlyWithout: 'Heures mensuelles ESG (sans Dcycle)', perEmployeeMonth: 'Par employé, par mois',
+    basedOnClientData: 'Basé sur des données réelles de clients Dcycle',
+    b1ResultsTitle: 'Économies Conseil', manualHoursYear: 'Heures manuelles/an',
+    hoursDcycleYear: 'Heures avec Dcycle/an', hoursSavedYear: 'Heures économisées/an', totalSavings: 'Économies totales',
+    b2ResultsTitle: "Économies Équipe Interne",
     esgHoursWithout: 'Heures ESG/an (sans Dcycle)', esgHoursWith: 'Heures ESG/an (avec Dcycle)',
-    hoursFreed: 'Heures liberees/an', costPerHour: 'Cout charge/heure', timeReduction: 'Reduction du temps',
-    totalInternalSavings: 'Economies internes totales',
-    estimatedROI: "Retour sur Investissement Annuel Estime", totalAnnualSavings: 'Economies annuelles totales avec Dcycle',
-    b1BreakLabel: 'Bloc 1 — Conseil', b2BreakLabel: 'Bloc 2 — Equipe Interne',
-    leadTitle: 'Telechargez votre rapport ROI personnalise',
-    leadSubtitle: "Obtenez un PDF resume de vos economies a partager avec votre equipe.",
-    fullName: 'Nom complet *', company: 'Entreprise *', email: 'Email *', phone: 'Telephone',
-    downloadPDF: 'Telecharger le Rapport ROI (PDF)',
-    disclaimer: 'Vos informations sont uniquement utilisees pour generer le rapport. Dcycle respecte votre vie privee.',
-    reportDownloaded: 'Rapport telecharge!', checkDownloads: 'Verifiez votre dossier de telechargements.',
+    hoursFreed: 'Heures libérées/an', costPerHour: 'Coût chargé/heure', timeReduction: 'Réduction du temps',
+    totalInternalSavings: 'Économies internes totales',
+    estimatedROI: "Retour sur Investissement Annuel Estimé", totalAnnualSavings: 'Économies annuelles totales avec Dcycle',
+    b1BreakLabel: 'Bloc 1 — Conseil', b2BreakLabel: 'Bloc 2 — Équipe Interne',
+    leadTitle: 'Téléchargez votre rapport ROI personnalisé',
+    leadSubtitle: "Obtenez un PDF résumé de vos économies à partager avec votre équipe.",
+    fullName: 'Nom complet *', company: 'Entreprise *', email: 'Email *', phone: 'Téléphone',
+    downloadPDF: 'Télécharger le Rapport ROI (PDF)',
+    disclaimer: 'Vos informations sont uniquement utilisées pour générer le rapport. Dcycle respecte votre vie privée.',
+    reportDownloaded: 'Rapport téléchargé!', checkDownloads: 'Vérifiez votre dossier de téléchargements.',
     fillFields: 'Veuillez remplir nom, entreprise et email.',
-    pdfPreparedFor: 'Prepare pour', pdfCountry: 'Pays', pdfIndustry: 'Industrie', pdfGenerated: 'Genere',
-    pdfSolution: 'Solution', pdfManual: 'Manuel', pdfDcycle: 'Dcycle', pdfSaved: 'Economise', pdfSavings: 'Economies',
-    pdfMetric: 'Metrique', pdfValue: 'Valeur', pdfBefore: 'Avant', pdfWithDcycle: 'Avec Dcycle',
-    pdfFooter: "Ce rapport a ete genere par le Calculateur ROI Dcycle. Les chiffres sont des estimations basees sur les donnees utilisateur et les benchmarks de l'industrie.",
-    ind_food: 'Agroalimentaire', ind_health: 'Sante / Multi-sites', ind_industrial: 'Industrie / Fabrication',
+    pdfPreparedFor: 'Préparé pour', pdfCountry: 'Pays', pdfIndustry: 'Industrie', pdfGenerated: 'Généré',
+    pdfSolution: 'Solution', pdfManual: 'Manuel', pdfDcycle: 'Dcycle', pdfSaved: 'Économisé', pdfSavings: 'Économies',
+    pdfMetric: 'Métrique', pdfValue: 'Valeur', pdfBefore: 'Avant', pdfWithDcycle: 'Avec Dcycle',
+    pdfFooter: "Ce rapport a été généré par le Calculateur ROI Dcycle. Les chiffres sont des estimations basées sur les données utilisateur et les benchmarks de l'industrie.",
+    ind_food: 'Agroalimentaire', ind_health: 'Santé / Multi-sites', ind_industrial: 'Industrie / Fabrication',
     ind_logistics: 'Logistique et Transport', ind_chemical: 'Chimie / Pharma', ind_retail: 'Distribution et Biens de Consommation',
-    ind_energy: 'Energie et Services Publics', ind_construction: 'Construction et Immobilier', ind_tech: 'Technologie et Services',
+    ind_energy: 'Énergie et Services Publics', ind_construction: 'Construction et Immobilier', ind_tech: 'Technologie et Services',
     ind_finance: 'Services Financiers', ind_other: 'Autre',
-    sol_ghg: 'Changement Climatique — Emissions GES', sol_ecovadis: 'Ecovadis', sol_lca: 'Analyse du Cycle de Vie (ACV)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Approvisionnement / Chaine Logistique', sol_einf: 'DPEF / Reporting Extra-Financier',
+    sol_ghg: 'Changement Climatique — Émissions GES', sol_ecovadis: 'Ecovadis', sol_lca: 'Analyse du Cycle de Vie (ACV)',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Approvisionnement / Chaîne Logistique', sol_glec: 'Cadre GLEC — Émissions de Transport', sol_einf: 'DPEF / Reporting Extra-Financier',
+    companySize: 'Taille entreprise:', selectSize: '-- Sélectionnez la taille --',
+    size_small: '250 – 1 000 employés', size_medium: '1 000 – 5 000 employés', size_large: '5 000+ employés',
+    pdfCompanySize: 'Taille entreprise',
   },
   de: {
     langName: 'Deutsch',
     roiCalculator: 'ROI-Rechner', heroTitle: 'Berechnen Sie Ihren ROI mit Dcycle',
-    heroSubtitle: 'Erfahren Sie, wie viel Ihr Unternehmen bei Beratungskosten und internen Teamstunden sparen kann. Diese Einsparungen wurden von Kunden aus verschiedenen Branchen und Landern berichtet, die Dcycles ESG-Losungen nutzen.',
-    country: 'Land:', currency: 'Wahrung:', industry: 'Branche:',
-    selectCountry: '-- Land wahlen --', selectIndustry: '-- Branche wahlen --',
-    stepSolutionsTitle: 'Wahlen Sie Ihre Dcycle ESG-Losungen',
-    stepSolutionsSubtitle: 'Wahlen Sie, welche Dcycle-Losungen Ihr Unternehmen nutzt oder plant zu nutzen.',
+    heroSubtitle: 'Erfahren Sie, wie viel Ihr Unternehmen bei Beratungskosten und internen Teamstunden sparen kann. Diese Einsparungen wurden von Kunden aus verschiedenen Branchen und Ländern berichtet, die Dcycles ESG-Lösungen nutzen.',
+    country: 'Land:', currency: 'Währung:', industry: 'Branche:',
+    selectCountry: '-- Land wählen --', selectIndustry: '-- Branche wählen --',
+    stepSolutionsTitle: 'Wählen Sie Ihre Dcycle ESG-Lösungen',
+    stepSolutionsSubtitle: 'Wählen Sie, welche Dcycle-Lösungen Ihr Unternehmen nutzt oder plant zu nutzen.',
     stepModeTitle: 'Wie verwalten Sie derzeit ESG?',
-    stepModeSubtitle: 'Wahlen Sie, wie Ihr Unternehmen ESG-Arbeit heute handhabt, um Ihre personlichen Einsparungen zu sehen.',
+    stepModeSubtitle: 'Wählen Sie, wie Ihr Unternehmen ESG-Arbeit heute handhabt, um Ihre persönlichen Einsparungen zu sehen.',
     modeConsultingLabel: 'Externe Beratung',
     modeConsultingDesc: 'Wir lagern ESG-Aufgaben an externe Berater aus',
     modeInternalLabel: 'Internes Team',
     modeInternalDesc: 'Wir haben interne Mitarbeiter, die ESG-Aufgaben bearbeiten',
-    b1SelectedSolutions: 'Ausgewahlte Losungen — Stundenvergleich',
-    noSolutionsSelected: 'Wahlen Sie in Schritt 1 Losungen aus, um den Stundenvergleich zu sehen.',
-    b2SolutionsHintShort: 'Stunden mit Dcycle werden automatisch basierend auf Branche und ausgewahlten Losungen berechnet',
+    b1SelectedSolutions: 'Ausgewählte Lösungen — Stundenvergleich',
+    noSolutionsSelected: 'Wählen Sie in Schritt 1 Lösungen aus, um den Stundenvergleich zu sehen.',
+    b2SolutionsHintShort: 'Stunden mit Dcycle werden automatisch basierend auf Branche und ausgewählten Lösungen berechnet',
     b1Title: 'Beratungseinsparungen', b1Subtitle: 'Zeit- und Kosteneinsparungen durch Ersatz externer Beratung mit Dcycle.',
     b2Title: 'Interne Teameffizienz', b2Subtitle: 'Gehaltseinsparungen durch Reduzierung der ESG-Arbeitslast Ihres Teams mit Dcycle.',
-    selectSolutions: 'Wahlen Sie Ihre Dcycle-Losungen',
-    b2SolutionsHint: 'Stunden mit Dcycle werden automatisch basierend auf Branche und ausgewahlten Losungen berechnet',
-    selectIndustryHint: 'Wahlen Sie oben eine <strong>Branche</strong>, um losungsspezifische Benchmarks zu sehen.',
-    monthlyWithDcycle: 'Monatliche Stunden mit Dcycle (automatisch)', basedOnBenchmarks: 'Basierend auf Losungen & Branchen-Benchmarks',
-    consultancyRate: 'Beratungsstundensatz', consultancyCostH: 'Beratungskosten/Stunde', consultancyHint: 'Durchschnittlicher Satz fur ESG-/Nachhaltigkeitsberatung',
+    selectSolutions: 'Wählen Sie Ihre Dcycle-Lösungen',
+    b2SolutionsHint: 'Stunden mit Dcycle werden automatisch basierend auf Branche und ausgewählten Lösungen berechnet',
+    selectIndustryHint: 'Wählen Sie oben eine <strong>Branche</strong>, um lösungsspezifische Benchmarks zu sehen.',
+    monthlyWithDcycle: 'Monatliche Stunden mit Dcycle (automatisch)', basedOnBenchmarks: 'Basierend auf Lösungen & Branchen-Benchmarks',
+    consultancyRate: 'Beratungsstundensatz', consultancyCostH: 'Beratungskosten/Stunde', consultancyHint: 'Durchschnittlicher Satz für ESG-/Nachhaltigkeitsberatung',
     employeesESG: 'Mitarbeiter in ESG-Aufgaben', avgSalary: 'Durchschnittliches Bruttojahresgehalt',
     overhead: 'Arbeitgebernebenkosten (%)', overheadHint: 'Sozialabgaben, Leistungen', workHoursMonth: 'Arbeitsstunden/Monat',
     monthlyWithout: 'Monatliche ESG-Stunden (ohne Dcycle)', perEmployeeMonth: 'Pro Mitarbeiter, pro Monat',
@@ -1187,30 +1193,33 @@ const LANGS = {
     esgHoursWithout: 'ESG-Stunden/Jahr (ohne Dcycle)', esgHoursWith: 'ESG-Stunden/Jahr (mit Dcycle)',
     hoursFreed: 'Freigesetzte Stunden/Jahr', costPerHour: 'Vollkosten/Stunde', timeReduction: 'Zeitreduzierung',
     totalInternalSavings: 'Gesamte interne Einsparungen',
-    estimatedROI: 'Geschatzter jahrlicher Return on Investment', totalAnnualSavings: 'Jahrliche Gesamteinsparungen mit Dcycle',
+    estimatedROI: 'Geschätzter jährlicher Return on Investment', totalAnnualSavings: 'Jährliche Gesamteinsparungen mit Dcycle',
     b1BreakLabel: 'Block 1 — Beratung', b2BreakLabel: 'Block 2 — Internes Team',
     leadTitle: 'Laden Sie Ihren personalisierten ROI-Bericht herunter',
     leadSubtitle: 'Erhalten Sie eine PDF-Zusammenfassung Ihrer Einsparungen.',
-    fullName: 'Vollstandiger Name *', company: 'Unternehmen *', email: 'E-Mail *', phone: 'Telefon',
+    fullName: 'Vollständiger Name *', company: 'Unternehmen *', email: 'E-Mail *', phone: 'Telefon',
     downloadPDF: 'ROI-Bericht herunterladen (PDF)',
-    disclaimer: 'Ihre Daten werden nur zur Berichterstellung verwendet. Dcycle respektiert Ihre Privatsphare.',
-    reportDownloaded: 'Bericht heruntergeladen!', checkDownloads: 'Prufen Sie Ihren Download-Ordner.',
-    fillFields: 'Bitte Name, Unternehmen und E-Mail ausfullen.',
-    pdfPreparedFor: 'Erstellt fur', pdfCountry: 'Land', pdfIndustry: 'Branche', pdfGenerated: 'Erstellt',
-    pdfSolution: 'Losung', pdfManual: 'Manuell', pdfDcycle: 'Dcycle', pdfSaved: 'Gespart', pdfSavings: 'Einsparungen',
+    disclaimer: 'Ihre Daten werden nur zur Berichterstellung verwendet. Dcycle respektiert Ihre Privatsphäre.',
+    reportDownloaded: 'Bericht heruntergeladen!', checkDownloads: 'Prüfen Sie Ihren Download-Ordner.',
+    fillFields: 'Bitte Name, Unternehmen und E-Mail ausfüllen.',
+    pdfPreparedFor: 'Erstellt für', pdfCountry: 'Land', pdfIndustry: 'Branche', pdfGenerated: 'Erstellt',
+    pdfSolution: 'Lösung', pdfManual: 'Manuell', pdfDcycle: 'Dcycle', pdfSaved: 'Gespart', pdfSavings: 'Einsparungen',
     pdfMetric: 'Metrik', pdfValue: 'Wert', pdfBefore: 'Vorher', pdfWithDcycle: 'Mit Dcycle',
-    pdfFooter: 'Dieser Bericht wurde vom Dcycle ROI-Rechner erstellt. Die Zahlen sind Schatzungen basierend auf Nutzereingaben und Branchen-Benchmarks.',
-    ind_food: 'Lebensmittel & Getranke', ind_health: 'Gesundheit / Multi-Standort', ind_industrial: 'Industrie / Fertigung',
-    ind_logistics: 'Logistik & Transport', ind_chemical: 'Chemie / Pharma', ind_retail: 'Einzelhandel & Konsumguter',
+    pdfFooter: 'Dieser Bericht wurde vom Dcycle ROI-Rechner erstellt. Die Zahlen sind Schätzungen basierend auf Nutzereingaben und Branchen-Benchmarks.',
+    ind_food: 'Lebensmittel & Getränke', ind_health: 'Gesundheit / Multi-Standort', ind_industrial: 'Industrie / Fertigung',
+    ind_logistics: 'Logistik & Transport', ind_chemical: 'Chemie / Pharma', ind_retail: 'Einzelhandel & Konsumgüter',
     ind_energy: 'Energie & Versorger', ind_construction: 'Bau & Immobilien', ind_tech: 'Technologie & Dienstleistungen',
     ind_finance: 'Finanzdienstleistungen', ind_other: 'Andere',
     sol_ghg: 'Klimawandel — Treibhausgasemissionen', sol_ecovadis: 'Ecovadis', sol_lca: 'Lebenszyklusanalyse (LCA)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Beschaffung / Lieferkette', sol_einf: 'EINF / Nichtfinanzielle Berichterstattung',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Beschaffung / Lieferkette', sol_glec: 'GLEC-Rahmenwerk — Transportemissionen', sol_einf: 'EINF / Nichtfinanzielle Berichterstattung',
+    companySize: 'Unternehmensgröße:', selectSize: '-- Größe wählen --',
+    size_small: '250 – 1.000 Mitarbeiter', size_medium: '1.000 – 5.000 Mitarbeiter', size_large: '5.000+ Mitarbeiter',
+    pdfCompanySize: 'Unternehmensgröße',
   },
   it: {
     langName: 'Italiano',
     roiCalculator: 'Calcolatore ROI', heroTitle: 'Calcola il tuo ROI con Dcycle',
-    heroSubtitle: 'Scopri quanto la tua azienda puo risparmiare in costi di consulenza e ore del team interno. Questi risparmi sono stati segnalati da clienti di diversi settori e paesi che utilizzano le soluzioni ESG di Dcycle.',
+    heroSubtitle: 'Scopri quanto la tua azienda può risparmiare in costi di consulenza e ore del team interno. Questi risparmi sono stati segnalati da clienti di diversi settori e paesi che utilizzano le soluzioni ESG di Dcycle.',
     country: 'Paese:', currency: 'Valuta:', industry: 'Settore:',
     selectCountry: '-- Seleziona paese --', selectIndustry: '-- Seleziona settore --',
     stepSolutionsTitle: 'Seleziona le tue Soluzioni ESG Dcycle',
@@ -1218,9 +1227,9 @@ const LANGS = {
     stepModeTitle: 'Come gestite attualmente l\'ESG?',
     stepModeSubtitle: 'Seleziona come la tua azienda gestisce il lavoro ESG oggi per vedere i tuoi risparmi personalizzati.',
     modeConsultingLabel: 'Consulenza esterna',
-    modeConsultingDesc: 'Esternalizziamo le attivita ESG a consulenti esterni',
+    modeConsultingDesc: 'Esternalizziamo le attività ESG a consulenti esterni',
     modeInternalLabel: 'Team interno dedicato',
-    modeInternalDesc: 'Abbiamo dipendenti interni che gestiscono le attivita ESG',
+    modeInternalDesc: 'Abbiamo dipendenti interni che gestiscono le attività ESG',
     b1SelectedSolutions: 'Soluzioni selezionate — confronto ore',
     noSolutionsSelected: 'Seleziona le soluzioni nel Passaggio 1 per vedere il confronto delle ore.',
     b2SolutionsHintShort: 'Le ore con Dcycle sono calcolate automaticamente in base al settore e alle soluzioni selezionate',
@@ -1230,8 +1239,8 @@ const LANGS = {
     b2SolutionsHint: 'Le ore con Dcycle sono calcolate automaticamente in base al settore e alle soluzioni selezionate',
     selectIndustryHint: 'Seleziona un <strong>settore</strong> in alto per vedere i benchmark di risparmio per soluzione.',
     monthlyWithDcycle: 'Ore mensili con Dcycle (auto-calcolato)', basedOnBenchmarks: 'Basato su soluzioni selezionate e benchmark del settore',
-    consultancyRate: 'Tariffa oraria consulenza', consultancyCostH: 'Costo consulenza/ora', consultancyHint: 'Tariffa media per consulenza ESG/sostenibilita',
-    employeesESG: 'Dipendenti coinvolti in attivita ESG', avgSalary: 'Stipendio lordo annuo medio',
+    consultancyRate: 'Tariffa oraria consulenza', consultancyCostH: 'Costo consulenza/ora', consultancyHint: 'Tariffa media per consulenza ESG/sostenibilità',
+    employeesESG: 'Dipendenti coinvolti in attività ESG', avgSalary: 'Stipendio lordo annuo medio',
     overhead: 'Oneri datore di lavoro (%)', overheadHint: 'Contributi sociali, benefit', workHoursMonth: 'Ore di lavoro/mese',
     monthlyWithout: 'Ore mensili ESG (senza Dcycle)', perEmployeeMonth: 'Per dipendente, per mese',
     basedOnClientData: 'Basato su dati reali di clienti Dcycle',
@@ -1252,66 +1261,72 @@ const LANGS = {
     pdfPreparedFor: 'Preparato per', pdfCountry: 'Paese', pdfIndustry: 'Settore', pdfGenerated: 'Generato',
     pdfSolution: 'Soluzione', pdfManual: 'Manuale', pdfDcycle: 'Dcycle', pdfSaved: 'Risparmiato', pdfSavings: 'Risparmi',
     pdfMetric: 'Metrica', pdfValue: 'Valore', pdfBefore: 'Prima', pdfWithDcycle: 'Con Dcycle',
-    pdfFooter: 'Questo report e stato generato dal Calcolatore ROI Dcycle. I dati sono stime basate su input utente e benchmark del settore.',
+    pdfFooter: 'Questo report è stato generato dal Calcolatore ROI Dcycle. I dati sono stime basate su input utente e benchmark del settore.',
     ind_food: 'Alimentare e Bevande', ind_health: 'Sanita / Multi-sede', ind_industrial: 'Industriale / Manifatturiero',
     ind_logistics: 'Logistica e Trasporti', ind_chemical: 'Chimico / Farmaceutico', ind_retail: 'Retail e Beni di Consumo',
     ind_energy: 'Energia e Utility', ind_construction: 'Costruzioni e Immobiliare', ind_tech: 'Tecnologia e Servizi',
     ind_finance: 'Servizi Finanziari', ind_other: 'Altro',
     sol_ghg: 'Cambiamento Climatico — Emissioni GHG', sol_ecovadis: 'Ecovadis', sol_lca: 'Analisi del Ciclo di Vita (LCA)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Approvvigionamento / Supply Chain', sol_einf: 'EINF / Rendicontazione Non Finanziaria',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Approvvigionamento / Supply Chain', sol_glec: 'Framework GLEC — Emissioni di Trasporto', sol_einf: 'EINF / Rendicontazione Non Finanziaria',
+    companySize: 'Dimensione azienda:', selectSize: '-- Seleziona dimensione --',
+    size_small: '250 – 1.000 dipendenti', size_medium: '1.000 – 5.000 dipendenti', size_large: '5.000+ dipendenti',
+    pdfCompanySize: 'Dimensione azienda',
   },
   pt: {
-    langName: 'Portugues',
+    langName: 'Português',
     roiCalculator: 'Calculadora ROI', heroTitle: 'Calcule o seu ROI com a Dcycle',
-    heroSubtitle: 'Descubra quanto a sua empresa pode poupar em custos de consultoria e horas da equipa interna. Estas poupancas foram reportadas por clientes de diferentes industrias e paises que utilizam as solucoes ESG da Dcycle.',
-    country: 'Pais:', currency: 'Moeda:', industry: 'Industria:',
-    selectCountry: '-- Selecionar pais --', selectIndustry: '-- Selecionar industria --',
-    stepSolutionsTitle: 'Selecione as suas Solucoes ESG Dcycle',
-    stepSolutionsSubtitle: 'Escolha as solucoes Dcycle que a sua empresa utiliza ou planeia utilizar.',
+    heroSubtitle: 'Descubra quanto a sua empresa pode poupar em custos de consultoria e horas da equipa interna. Estas poupanças foram reportadas por clientes de diferentes indústrias e países que utilizam as soluções ESG da Dcycle.',
+    country: 'País:', currency: 'Moeda:', industry: 'Indústria:',
+    selectCountry: '-- Selecionar país --', selectIndustry: '-- Selecionar indústria --',
+    stepSolutionsTitle: 'Selecione as suas Soluções ESG Dcycle',
+    stepSolutionsSubtitle: 'Escolha as soluções Dcycle que a sua empresa utiliza ou planeia utilizar.',
     stepModeTitle: 'Como gere atualmente o ESG?',
     stepModeSubtitle: 'Selecione como a sua empresa gere o trabalho ESG hoje para ver as suas poupancas personalizadas.',
     modeConsultingLabel: 'Consultoria externa',
     modeConsultingDesc: 'Externalizamos as tarefas ESG a consultores externos',
     modeInternalLabel: 'Equipa interna dedicada',
     modeInternalDesc: 'Temos funcionarios internos a gerir as tarefas ESG',
-    b1SelectedSolutions: 'Solucoes selecionadas — comparacao de horas',
-    noSolutionsSelected: 'Selecione solucoes no Passo 1 para ver a comparacao de horas.',
-    b2SolutionsHintShort: 'As horas com Dcycle sao calculadas automaticamente com base na industria e solucoes selecionadas',
-    b1Title: 'Poupanca em Consultoria', b1Subtitle: 'Tempo e custo poupado ao substituir consultoria externa por Dcycle.',
-    b2Title: 'Eficiencia da Equipa Interna', b2Subtitle: 'Poupanca salarial ao reduzir a carga ESG da sua equipa com Dcycle.',
-    selectSolutions: 'Selecione as suas solucoes Dcycle',
-    b2SolutionsHint: 'As horas com Dcycle sao calculadas automaticamente com base na industria e solucoes selecionadas',
-    selectIndustryHint: 'Selecione uma <strong>industria</strong> no topo para ver benchmarks de poupanca por solucao.',
+    b1SelectedSolutions: 'Soluções selecionadas — comparação de horas',
+    noSolutionsSelected: 'Selecione soluções no Passo 1 para ver a comparação de horas.',
+    b2SolutionsHintShort: 'As horas com Dcycle são calculadas automaticamente com base na indústria e soluções selecionadas',
+    b1Title: 'Poupança em Consultoria', b1Subtitle: 'Tempo e custo poupado ao substituir consultoria externa por Dcycle.',
+    b2Title: 'Eficiência da Equipa Interna', b2Subtitle: 'Poupança salarial ao reduzir a carga ESG da sua equipa com Dcycle.',
+    selectSolutions: 'Selecione as suas soluções Dcycle',
+    b2SolutionsHint: 'As horas com Dcycle são calculadas automaticamente com base na indústria e soluções selecionadas',
+    selectIndustryHint: 'Selecione uma <strong>indústria</strong> no topo para ver benchmarks de poupança por solução.',
     monthlyWithDcycle: 'Horas mensais com Dcycle (auto-calculado)', basedOnBenchmarks: 'Com base nas solucoes selecionadas e benchmarks da industria',
     consultancyRate: 'Tarifa horaria de consultoria', consultancyCostH: 'Custo consultoria/hora', consultancyHint: 'Tarifa media para consultoria ESG/sustentabilidade',
     employeesESG: 'Funcionarios envolvidos em tarefas ESG', avgSalary: 'Salario bruto anual medio',
     overhead: 'Encargos patronais (%)', overheadHint: 'Seguranca social, beneficios', workHoursMonth: 'Horas de trabalho/mes',
     monthlyWithout: 'Horas mensais ESG (sem Dcycle)', perEmployeeMonth: 'Por funcionario, por mes',
     basedOnClientData: 'Com base em dados reais de clientes Dcycle',
-    b1ResultsTitle: 'Poupanca Consultoria', manualHoursYear: 'Horas manuais/ano',
-    hoursDcycleYear: 'Horas com Dcycle/ano', hoursSavedYear: 'Horas poupadas/ano', totalSavings: 'Poupanca total',
-    b2ResultsTitle: 'Poupanca Equipa Interna',
+    b1ResultsTitle: 'Poupança Consultoria', manualHoursYear: 'Horas manuais/ano',
+    hoursDcycleYear: 'Horas com Dcycle/ano', hoursSavedYear: 'Horas poupadas/ano', totalSavings: 'Poupança total',
+    b2ResultsTitle: 'Poupança Equipa Interna',
     esgHoursWithout: 'Horas ESG/ano (sem Dcycle)', esgHoursWith: 'Horas ESG/ano (com Dcycle)',
-    hoursFreed: 'Horas libertadas/ano', costPerHour: 'Custo carregado/hora', timeReduction: 'Reducao de tempo',
-    totalInternalSavings: 'Poupanca interna total',
+    hoursFreed: 'Horas libertadas/ano', costPerHour: 'Custo carregado/hora', timeReduction: 'Redução de tempo',
+    totalInternalSavings: 'Poupança interna total',
     estimatedROI: 'Retorno do Investimento Anual Estimado', totalAnnualSavings: 'Poupanca anual total usando Dcycle',
     b1BreakLabel: 'Bloco 1 — Consultoria', b2BreakLabel: 'Bloco 2 — Equipa Interna',
     leadTitle: 'Descarregue o seu relatorio ROI personalizado', leadSubtitle: 'Obtenha um PDF com o resumo das poupancas para partilhar com a sua equipa.',
     fullName: 'Nome completo *', company: 'Empresa *', email: 'Email *', phone: 'Telefone',
     downloadPDF: 'Descarregar Relatorio ROI (PDF)',
-    disclaimer: 'As suas informacoes sao usadas apenas para gerar o relatorio. A Dcycle respeita a sua privacidade.',
+    disclaimer: 'As suas informações são usadas apenas para gerar o relatório. A Dcycle respeita a sua privacidade.',
     reportDownloaded: 'Relatorio descarregado!', checkDownloads: 'Verifique a sua pasta de downloads.',
     fillFields: 'Por favor preencha nome, empresa e email.',
-    pdfPreparedFor: 'Preparado para', pdfCountry: 'Pais', pdfIndustry: 'Industria', pdfGenerated: 'Gerado',
-    pdfSolution: 'Solucao', pdfManual: 'Manual', pdfDcycle: 'Dcycle', pdfSaved: 'Poupado', pdfSavings: 'Poupanca',
-    pdfMetric: 'Metrica', pdfValue: 'Valor', pdfBefore: 'Antes', pdfWithDcycle: 'Com Dcycle',
-    pdfFooter: 'Este relatorio foi gerado pela Calculadora ROI Dcycle. Os valores sao estimativas baseadas em dados do utilizador e benchmarks da industria.',
-    ind_food: 'Alimentacao e Bebidas', ind_health: 'Saude / Multi-sede', ind_industrial: 'Industrial / Manufatura',
-    ind_logistics: 'Logistica e Transporte', ind_chemical: 'Quimico / Farmaceutico', ind_retail: 'Retalho e Bens de Consumo',
-    ind_energy: 'Energia e Utilidades', ind_construction: 'Construcao e Imobiliario', ind_tech: 'Tecnologia e Servicos',
-    ind_finance: 'Servicos Financeiros', ind_other: 'Outro',
-    sol_ghg: 'Alteracoes Climaticas — Emissoes GEE', sol_ecovadis: 'Ecovadis', sol_lca: 'Analise de Ciclo de Vida (ACV)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Aprovisionamento / Cadeia de Abastecimento', sol_einf: 'EINF / Relato Nao Financeiro',
+    pdfPreparedFor: 'Preparado para', pdfCountry: 'País', pdfIndustry: 'Indústria', pdfGenerated: 'Gerado',
+    pdfSolution: 'Solução', pdfManual: 'Manual', pdfDcycle: 'Dcycle', pdfSaved: 'Poupado', pdfSavings: 'Poupança',
+    pdfMetric: 'Métrica', pdfValue: 'Valor', pdfBefore: 'Antes', pdfWithDcycle: 'Com Dcycle',
+    pdfFooter: 'Este relatório foi gerado pela Calculadora ROI Dcycle. Os valores são estimativas baseadas em dados do utilizador e benchmarks da indústria.',
+    ind_food: 'Alimentação e Bebidas', ind_health: 'Saúde / Multi-sede', ind_industrial: 'Industrial / Manufatura',
+    ind_logistics: 'Logística e Transporte', ind_chemical: 'Químico / Farmacêutico', ind_retail: 'Retalho e Bens de Consumo',
+    ind_energy: 'Energia e Utilidades', ind_construction: 'Construção e Imobiliário', ind_tech: 'Tecnologia e Serviços',
+    ind_finance: 'Serviços Financeiros', ind_other: 'Outro',
+    sol_ghg: 'Alterações Climáticas — Emissões GEE', sol_ecovadis: 'Ecovadis', sol_lca: 'Análise de Ciclo de Vida (ACV)',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Aprovisionamento / Cadeia de Abastecimento', sol_glec: 'Quadro GLEC — Emissões de Transporte', sol_einf: 'EINF / Relato Não Financeiro',
+    companySize: 'Dimensão empresa:', selectSize: '-- Selecionar dimensão --',
+    size_small: '250 – 1.000 funcionários', size_medium: '1.000 – 5.000 funcionários', size_large: '5.000+ funcionários',
+    pdfCompanySize: 'Dimensão empresa',
   },
   nl: {
     langName: 'Nederlands',
@@ -1331,7 +1346,7 @@ const LANGS = {
     noSolutionsSelected: 'Selecteer oplossingen in Stap 1 om de urenvergelijking te zien.',
     b2SolutionsHintShort: 'Uren met Dcycle worden automatisch berekend op basis van sector en geselecteerde oplossingen',
     b1Title: 'Adviesbesparingen', b1Subtitle: 'Tijd- en kostenbesparing door extern advies te vervangen door Dcycle.',
-    b2Title: 'Interne Team Efficientie', b2Subtitle: 'Salaris besparing door ESG-werklast van uw team te verminderen met Dcycle.',
+    b2Title: 'Interne Team Efficiëntie', b2Subtitle: 'Salaris besparing door ESG-werklast van uw team te verminderen met Dcycle.',
     selectSolutions: 'Selecteer uw Dcycle-oplossingen',
     b2SolutionsHint: 'Uren met Dcycle worden automatisch berekend op basis van sector en geselecteerde oplossingen',
     selectIndustryHint: 'Selecteer bovenaan een <strong>sector</strong> om oplossingsspecifieke benchmarks te zien.',
@@ -1362,32 +1377,35 @@ const LANGS = {
     ind_food: 'Voeding & Dranken', ind_health: 'Gezondheidszorg / Multi-locatie', ind_industrial: 'Industrie / Productie',
     ind_logistics: 'Logistiek & Transport', ind_chemical: 'Chemie / Farma', ind_retail: 'Detailhandel & Consumentengoederen',
     ind_energy: 'Energie & Nutsbedrijven', ind_construction: 'Bouw & Vastgoed', ind_tech: 'Technologie & Diensten',
-    ind_finance: 'Financiele Dienstverlening', ind_other: 'Anders',
+    ind_finance: 'Financiële Dienstverlening', ind_other: 'Anders',
     sol_ghg: 'Klimaatverandering — Broeikasgasemissies', sol_ecovadis: 'Ecovadis', sol_lca: 'Levenscyclusanalyse (LCA)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Inkoop / Toeleveringsketen', sol_einf: 'EINF / Niet-Financiele Rapportage',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Inkoop / Toeleveringsketen', sol_glec: 'GLEC-Kader — Transportemissies', sol_einf: 'EINF / Niet-Financiële Rapportage',
+    companySize: 'Bedrijfsgrootte:', selectSize: '-- Selecteer grootte --',
+    size_small: '250 – 1.000 medewerkers', size_medium: '1.000 – 5.000 medewerkers', size_large: '5.000+ medewerkers',
+    pdfCompanySize: 'Bedrijfsgrootte',
   },
 };
 
 // ===================== SOLUTION & INDUSTRY DATA =====================
-const SOLUTION_KEYS = ['ghg','ecovadis','lca','iso','procurement','einf'];
+const SOLUTION_KEYS = ['ghg','ecovadis','lca','iso','procurement','glec','einf'];
 const SOLUTIONS_DATA = {
   ghg: { b1Manual: 240, b1Dcycle: 25 }, ecovadis: { b1Manual: 320, b1Dcycle: 48 },
   lca: { b1Manual: 250, b1Dcycle: 30 }, iso: { b1Manual: 200, b1Dcycle: 25 },
-  procurement: { b1Manual: 85, b1Dcycle: 12 }, einf: { b1Manual: 45, b1Dcycle: 8 },
+  procurement: { b1Manual: 85, b1Dcycle: 12 }, glec: { b1Manual: 150, b1Dcycle: 20 }, einf: { b1Manual: 45, b1Dcycle: 8 },
 };
 const INDUSTRY_KEYS = ['food','health','industrial','logistics','chemical','retail','energy','construction','tech','finance','other'];
 const INDUSTRY_DATA = {
-  food: { ref: 'Ajinomoto', solutions: { ghg:{before:35,after:8},ecovadis:{before:12,after:3},lca:{before:10,after:2},iso:{before:8,after:2},procurement:{before:15,after:3},einf:{before:10,after:2} }, tasks:[{task:'Consumption data collection',before:20,after:4},{task:'Scope 1+2 calculations',before:15,after:2},{task:'Scope 3 calculations',before:25,after:8},{task:'Regulatory registration (MITECO)',before:8,after:1},{task:'Annual reports',before:12,after:3},{task:'Product LCAs',before:10,after:2}]},
-  health: { ref: 'Miranza (40 clinics)', solutions: { ghg:{before:80,after:12},ecovadis:{before:25,after:5},lca:{before:15,after:3},iso:{before:20,after:4},procurement:{before:40,after:6},einf:{before:33,after:4} }, tasks:[{task:'Multi-site data collection',before:100,after:15},{task:'Manual platform upload',before:45,after:5},{task:'Validation & error correction',before:35,after:8},{task:'Investor fund reporting',before:20,after:4},{task:'Regulatory registration',before:13,after:2}]},
-  industrial: { ref: 'Emuca / Sulo Iberica', solutions: { ghg:{before:30,after:8},ecovadis:{before:15,after:3},lca:{before:25,after:6},iso:{before:40,after:4},procurement:{before:12,after:2},einf:{before:24,after:5} }, tasks:[{task:'Carbon footprint management',before:30,after:8},{task:'Product LCAs',before:25,after:6},{task:'Decarbonization plan',before:15,after:4},{task:'Client reporting',before:12,after:2},{task:'ISO 50001 energy baseline',before:40,after:4},{task:'Monthly group reports',before:24,after:4}]},
-  logistics: { ref: 'Perez y Cia / InPost', solutions: { ghg:{before:50,after:15},ecovadis:{before:12,after:3},lca:{before:8,after:2},iso:{before:20,after:7},procurement:{before:32,after:9},einf:{before:20,after:5} }, tasks:[{task:'ISO 14001 preparation',before:20,after:7},{task:'Manual GLEC calculations',before:30,after:10},{task:'Multi-company consolidation',before:22,after:7},{task:'Supplier data collection',before:50,after:12},{task:'Verification & audit',before:20,after:5}]},
-  chemical: { ref: 'Lluch Essence', solutions: { ghg:{before:18,after:5},ecovadis:{before:10,after:2},lca:{before:12,after:3},iso:{before:20,after:5},procurement:{before:18,after:4},einf:{before:10,after:3} }, tasks:[{task:'Logistics consolidation',before:50,after:12},{task:'Energy management ISO 50001',before:20,after:5},{task:'Carbon reporting',before:18,after:5}]},
-  retail: { ref: 'Industry average', solutions: { ghg:{before:20,after:5},ecovadis:{before:12,after:3},lca:{before:25,after:6},iso:{before:10,after:2},procurement:{before:18,after:4},einf:{before:10,after:2} }, tasks:[{task:'Supply chain data collection',before:35,after:8},{task:'Scope 3 upstream calculations',before:20,after:5},{task:'Product carbon footprints',before:25,after:6},{task:'Sustainability reporting',before:15,after:3}]},
-  energy: { ref: 'Industry average', solutions: { ghg:{before:40,after:8},ecovadis:{before:15,after:3},lca:{before:15,after:4},iso:{before:25,after:5},procurement:{before:20,after:5},einf:{before:20,after:5} }, tasks:[{task:'Emissions monitoring & reporting',before:60,after:12},{task:'Regulatory compliance (ETS)',before:30,after:8},{task:'Energy efficiency tracking',before:25,after:5},{task:'Decarbonization roadmap',before:20,after:5}]},
-  construction: { ref: 'Industry average', solutions: { ghg:{before:25,after:6},ecovadis:{before:12,after:3},lca:{before:25,after:6},iso:{before:20,after:5},procurement:{before:15,after:4},einf:{before:13,after:3} }, tasks:[{task:'Project-level emissions',before:40,after:10},{task:'Building certifications (BREEAM)',before:30,after:8},{task:'Material LCAs',before:25,after:6},{task:'Sustainability reporting',before:15,after:3}]},
-  tech: { ref: 'Industry average', solutions: { ghg:{before:15,after:3},ecovadis:{before:10,after:2},lca:{before:8,after:2},iso:{before:8,after:2},procurement:{before:10,after:2},einf:{before:9,after:2} }, tasks:[{task:'Scope 1+2 (offices, data centers)',before:15,after:3},{task:'Scope 3 (commuting, cloud)',before:20,after:5},{task:'ESG report / EINF',before:15,after:3},{task:'Carbon offset management',before:10,after:2}]},
-  finance: { ref: 'Industry average', solutions: { ghg:{before:25,after:5},ecovadis:{before:12,after:3},lca:{before:10,after:2},iso:{before:18,after:4},procurement:{before:20,after:5},einf:{before:25,after:7} }, tasks:[{task:'Portfolio carbon footprint',before:45,after:10},{task:'SFDR / EU Taxonomy alignment',before:30,after:8},{task:'ESG risk assessment',before:20,after:5},{task:'Regulatory reporting',before:15,after:3}]},
-  other: { ref: 'Cross-industry average', solutions: { ghg:{before:20,after:5},ecovadis:{before:10,after:2},lca:{before:10,after:3},iso:{before:12,after:3},procurement:{before:18,after:4},einf:{before:12,after:2} }, tasks:[{task:'Data collection & consolidation',before:30,after:7},{task:'Carbon calculations (all scopes)',before:25,after:6},{task:'Sustainability reporting',before:15,after:3},{task:'Regulatory compliance',before:12,after:3}]},
+  food: { ref: 'Ajinomoto', solutions: { ghg:{before:35,after:8},ecovadis:{before:12,after:3},lca:{before:10,after:2},iso:{before:8,after:2},procurement:{before:15,after:3},glec:{before:12,after:3},einf:{before:10,after:2} }, tasks:[{task:'Consumption data collection',before:20,after:4},{task:'Scope 1+2 calculations',before:15,after:2},{task:'Scope 3 calculations',before:25,after:8},{task:'Regulatory registration (MITECO)',before:8,after:1},{task:'Annual reports',before:12,after:3},{task:'Product LCAs',before:10,after:2}]},
+  health: { ref: 'Miranza (40 clinics)', solutions: { ghg:{before:80,after:12},ecovadis:{before:25,after:5},lca:{before:15,after:3},iso:{before:20,after:4},procurement:{before:40,after:6},glec:{before:15,after:4},einf:{before:33,after:4} }, tasks:[{task:'Multi-site data collection',before:100,after:15},{task:'Manual platform upload',before:45,after:5},{task:'Validation & error correction',before:35,after:8},{task:'Investor fund reporting',before:20,after:4},{task:'Regulatory registration',before:13,after:2}]},
+  industrial: { ref: 'Emuca / Sulo Iberica', solutions: { ghg:{before:30,after:8},ecovadis:{before:15,after:3},lca:{before:25,after:6},iso:{before:40,after:4},procurement:{before:12,after:2},glec:{before:18,after:5},einf:{before:24,after:5} }, tasks:[{task:'Carbon footprint management',before:30,after:8},{task:'Product LCAs',before:25,after:6},{task:'Decarbonization plan',before:15,after:4},{task:'Client reporting',before:12,after:2},{task:'ISO 50001 energy baseline',before:40,after:4},{task:'Monthly group reports',before:24,after:4}]},
+  logistics: { ref: 'Perez y Cia / InPost', solutions: { ghg:{before:50,after:15},ecovadis:{before:12,after:3},lca:{before:8,after:2},iso:{before:20,after:7},procurement:{before:32,after:9},glec:{before:30,after:8},einf:{before:20,after:5} }, tasks:[{task:'ISO 14001 preparation',before:20,after:7},{task:'Manual GLEC calculations',before:30,after:10},{task:'Multi-company consolidation',before:22,after:7},{task:'Supplier data collection',before:50,after:12},{task:'Verification & audit',before:20,after:5}]},
+  chemical: { ref: 'Lluch Essence', solutions: { ghg:{before:18,after:5},ecovadis:{before:10,after:2},lca:{before:12,after:3},iso:{before:20,after:5},procurement:{before:18,after:4},glec:{before:15,after:4},einf:{before:10,after:3} }, tasks:[{task:'Logistics consolidation',before:50,after:12},{task:'Energy management ISO 50001',before:20,after:5},{task:'Carbon reporting',before:18,after:5}]},
+  retail: { ref: 'Industry average', solutions: { ghg:{before:20,after:5},ecovadis:{before:12,after:3},lca:{before:25,after:6},iso:{before:10,after:2},procurement:{before:18,after:4},glec:{before:12,after:3},einf:{before:10,after:2} }, tasks:[{task:'Supply chain data collection',before:35,after:8},{task:'Scope 3 upstream calculations',before:20,after:5},{task:'Product carbon footprints',before:25,after:6},{task:'Sustainability reporting',before:15,after:3}]},
+  energy: { ref: 'Industry average', solutions: { ghg:{before:40,after:8},ecovadis:{before:15,after:3},lca:{before:15,after:4},iso:{before:25,after:5},procurement:{before:20,after:5},glec:{before:15,after:4},einf:{before:20,after:5} }, tasks:[{task:'Emissions monitoring & reporting',before:60,after:12},{task:'Regulatory compliance (ETS)',before:30,after:8},{task:'Energy efficiency tracking',before:25,after:5},{task:'Decarbonization roadmap',before:20,after:5}]},
+  construction: { ref: 'Industry average', solutions: { ghg:{before:25,after:6},ecovadis:{before:12,after:3},lca:{before:25,after:6},iso:{before:20,after:5},procurement:{before:15,after:4},glec:{before:12,after:3},einf:{before:13,after:3} }, tasks:[{task:'Project-level emissions',before:40,after:10},{task:'Building certifications (BREEAM)',before:30,after:8},{task:'Material LCAs',before:25,after:6},{task:'Sustainability reporting',before:15,after:3}]},
+  tech: { ref: 'Industry average', solutions: { ghg:{before:15,after:3},ecovadis:{before:10,after:2},lca:{before:8,after:2},iso:{before:8,after:2},procurement:{before:10,after:2},glec:{before:8,after:2},einf:{before:9,after:2} }, tasks:[{task:'Scope 1+2 (offices, data centers)',before:15,after:3},{task:'Scope 3 (commuting, cloud)',before:20,after:5},{task:'ESG report / EINF',before:15,after:3},{task:'Carbon offset management',before:10,after:2}]},
+  finance: { ref: 'Industry average', solutions: { ghg:{before:25,after:5},ecovadis:{before:12,after:3},lca:{before:10,after:2},iso:{before:18,after:4},procurement:{before:20,after:5},glec:{before:10,after:3},einf:{before:25,after:7} }, tasks:[{task:'Portfolio carbon footprint',before:45,after:10},{task:'SFDR / EU Taxonomy alignment',before:30,after:8},{task:'ESG risk assessment',before:20,after:5},{task:'Regulatory reporting',before:15,after:3}]},
+  other: { ref: 'Cross-industry average', solutions: { ghg:{before:20,after:5},ecovadis:{before:10,after:2},lca:{before:10,after:3},iso:{before:12,after:3},procurement:{before:18,after:4},glec:{before:12,after:3},einf:{before:12,after:2} }, tasks:[{task:'Data collection & consolidation',before:30,after:7},{task:'Carbon calculations (all scopes)',before:25,after:6},{task:'Sustainability reporting',before:15,after:3},{task:'Regulatory compliance',before:12,after:3}]},
 };
 
 // ===================== COUNTRY DATA =====================
@@ -1414,6 +1432,7 @@ const CURRENCY_SYMBOLS = { EUR:'\u20ac', GBP:'\u00a3', USD:'$', CHF:'CHF', SEK:'
 
 // ===================== STATE =====================
 let currentCountry = '', currentIndustry = '', currentLang = 'en', currentCurrency = 'EUR';
+let currentSize = ''; // 'small', 'medium', 'large'
 let currentMode = ''; // 'b1' or 'b2'
 let b1Val = 0, b2Val = 0;
 
@@ -1526,8 +1545,8 @@ function onCountryChange() {
   document.getElementById('b2Overhead').value = c.overhead;
   document.getElementById('b2MonthlyWorkH').value = c.monthlyWorkH;
   // Auto-set currency
-  document.getElementById('currencySelect').value = c.currency;
   currentCurrency = c.currency;
+  updateCurrencyBadge();
   // Auto-set language
   if (LANGS[c.lang]) {
     currentLang = c.lang;
@@ -1537,9 +1556,12 @@ function onCountryChange() {
   setSymbols();
   calcAll();
 }
-function onCurrencyChange() {
-  currentCurrency = document.getElementById('currencySelect').value;
-  setSymbols();
+function updateCurrencyBadge() {
+  const sym = CURRENCY_SYMBOLS[currentCurrency] || currentCurrency;
+  document.getElementById('currencyLabel').textContent = sym + ' ' + currentCurrency;
+}
+function onSizeChange() {
+  currentSize = document.getElementById('sizeSelect').value;
   calcAll();
 }
 function setSymbols() {
@@ -1608,11 +1630,17 @@ function buildB2Solutions() {
 }
 
 // ===================== CALCULATIONS =====================
+function getSizeMultiplier() {
+  if (currentSize === 'medium') return 1.5;
+  if (currentSize === 'large') return 2.5;
+  return 1.0; // small or unselected
+}
 function calcBlock1() {
   const rate = parseFloat(document.getElementById('consultancyRate').value) || 0;
+  const sizeMult = getSizeMultiplier();
   let manH=0, dcH=0;
   document.querySelectorAll('#solutionsList .checkbox-item').forEach(item => {
-    if (item.querySelector('input').checked) { manH+=parseInt(item.dataset.manual); dcH+=parseInt(item.dataset.dcycle); }
+    if (item.querySelector('input').checked) { manH+=Math.round(parseInt(item.dataset.manual)*sizeMult); dcH+=Math.round(parseInt(item.dataset.dcycle)*sizeMult); }
   });
   const saved = manH - dcH;
   b1Val = saved * rate;
@@ -1707,7 +1735,9 @@ function generatePDF() {
     doc.text(pdfSafe(email+(phone?'  |  '+phone:'')),margin,y); y+=4;
     if (currentCountry) {
       const c = COUNTRY_DATA[currentCountry];
-      const countryLine = pdfSafe(t('pdfCountry'))+': '+pdfSafe(c.name)+(currentIndustry?'  |  '+pdfSafe(t('pdfIndustry'))+': '+pdfSafe(t('ind_'+currentIndustry)):'');
+      let countryLine = pdfSafe(t('pdfCountry'))+': '+pdfSafe(c.name);
+      if (currentIndustry) countryLine += '  |  '+pdfSafe(t('pdfIndustry'))+': '+pdfSafe(t('ind_'+currentIndustry));
+      if (currentSize) countryLine += '  |  '+pdfSafe(t('pdfCompanySize'))+': '+pdfSafe(t('size_'+currentSize));
       doc.text(countryLine,margin,y+4); y+=8;
     }
 
@@ -1731,11 +1761,12 @@ function generatePDF() {
       doc.setTextColor(99,102,241); doc.setFont('helvetica','bold'); doc.setFontSize(12);
       doc.text(pdfSafe(t('b1ResultsTitle')),margin,y); y+=6;
       const b1Rows=[];
+      const pdfSizeMult = getSizeMultiplier();
       document.querySelectorAll('#solutionsList .checkbox-item').forEach(item => {
         if(item.querySelector('input').checked){
           const label=pdfSafe(item.querySelector('.cb-label').textContent);
-          const m=item.dataset.manual; const d=item.dataset.dcycle;
-          const s=parseInt(m)-parseInt(d);
+          const m=Math.round(parseInt(item.dataset.manual)*pdfSizeMult); const d=Math.round(parseInt(item.dataset.dcycle)*pdfSizeMult);
+          const s=m-d;
           const rate=parseFloat(document.getElementById('consultancyRate').value)||0;
           b1Rows.push([label,m+'h',d+'h',s+'h',fmtPdf(s*rate)]);
         }
@@ -1832,6 +1863,7 @@ document.addEventListener('DOMContentLoaded', () => {
   langSel.value = 'en';
   applyLang();
   setSymbols();
+  updateCurrencyBadge();
   calcAll();
 });
 </script>
