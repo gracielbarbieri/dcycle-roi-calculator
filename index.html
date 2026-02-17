@@ -621,6 +621,35 @@ body {
 .btn-primary:hover { background: var(--dc-blue-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
 .btn-primary:active { transform: translateY(0); }
 .btn-primary svg { width: 18px; height: 18px; }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--green);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  width: 100%;
+  text-decoration: none;
+}
+.btn-secondary:hover { background: #059669; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-secondary:active { transform: translateY(0); }
+.btn-secondary svg { width: 18px; height: 18px; }
+.lead-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+.lead-buttons .btn-primary,
+.lead-buttons .btn-secondary { flex: 1; }
+@media (max-width: 600px) { .lead-buttons { flex-direction: column; } }
 .lead-disclaimer {
   text-align: center;
   font-size: 11px;
@@ -920,10 +949,16 @@ body {
             <input type="tel" class="field-input" id="leadPhone" placeholder="+34 600 123 456">
           </div>
         </div>
-        <button class="btn-primary" onclick="generatePDF()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
-          <span data-i18n="downloadPDF">Download ROI Report (PDF)</span>
-        </button>
+        <div class="lead-buttons">
+          <button class="btn-primary" onclick="generatePDF()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+            <span data-i18n="downloadPDF">Download ROI Report (PDF)</span>
+          </button>
+          <a class="btn-secondary" href="https://dcycle.io/es/agenda-demostracion" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <span data-i18n="talkToExpert">Talk to an Expert</span>
+          </a>
+        </div>
         <div class="lead-disclaimer" data-i18n="disclaimer">Your information is only used to generate the report. Dcycle respects your privacy.</div>
       </div>
       <div class="form-success" id="formSuccess">
@@ -1002,6 +1037,7 @@ const LANGS = {
     email: 'Email *',
     phone: 'Phone',
     downloadPDF: 'Download ROI Report (PDF)',
+    talkToExpert: 'Talk to an Expert',
     disclaimer: 'Your information is only used to generate the report. Dcycle respects your privacy.',
     reportDownloaded: 'Report downloaded!',
     checkDownloads: 'Check your downloads folder for the PDF.',
@@ -1027,7 +1063,7 @@ const LANGS = {
     ind_finance: 'Financial Services', ind_other: 'Other',
     // Solutions
     sol_ghg: 'Climate Change — GHG Emissions', sol_ecovadis: 'Ecovadis', sol_lca: 'Life Cycle Analysis (LCA)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Procurement / Supply Chain', sol_glec: 'GLEC Framework — Transport Emissions', sol_einf: 'EINF / Non-Financial Reporting',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Procurement / Supply Chain', sol_glec: 'GLEC Framework — Transport Emissions', sol_sbti: 'SBTi — Science Based Targets', sol_einf: 'EINF / Non-Financial Reporting',
     companySize: 'Company size:', selectSize: '-- Select size --',
     size_small: '250 – 1,000 employees', size_medium: '1,000 – 5,000 employees', size_large: '5,000+ employees',
     pdfCompanySize: 'Company size',
@@ -1084,6 +1120,7 @@ const LANGS = {
     leadSubtitle: 'Obtén un PDF con el resumen de ahorro para compartir con tu equipo.',
     fullName: 'Nombre completo *', company: 'Empresa *', email: 'Email *', phone: 'Teléfono',
     downloadPDF: 'Descargar Informe ROI (PDF)',
+    talkToExpert: 'Hablar con un Experto',
     disclaimer: 'Tu información solo se usa para generar el informe. Dcycle respeta tu privacidad.',
     reportDownloaded: '¡Informe descargado!', checkDownloads: 'Revisa tu carpeta de descargas.',
     fillFields: 'Por favor completa nombre, empresa y email.',
@@ -1096,7 +1133,7 @@ const LANGS = {
     ind_energy: 'Energía y Utilities', ind_construction: 'Construcción e Inmobiliario', ind_tech: 'Tecnología y Servicios',
     ind_finance: 'Servicios Financieros', ind_other: 'Otro',
     sol_ghg: 'Cambio Climático — Emisiones GEI', sol_ecovadis: 'Ecovadis', sol_lca: 'Análisis de Ciclo de Vida (ACV)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Aprovisionamiento / Cadena de Suministro', sol_glec: 'Marco GLEC — Emisiones de Transporte', sol_einf: 'EINF / Información No Financiera',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Aprovisionamiento / Cadena de Suministro', sol_glec: 'Marco GLEC — Emisiones de Transporte', sol_sbti: 'SBTi — Objetivos Basados en la Ciencia', sol_einf: 'EINF / Información No Financiera',
     companySize: 'Tamaño empresa:', selectSize: '-- Seleccionar tamaño --',
     size_small: '250 – 1.000 empleados', size_medium: '1.000 – 5.000 empleados', size_large: '5.000+ empleados',
     pdfCompanySize: 'Tamaño empresa',
@@ -1142,6 +1179,7 @@ const LANGS = {
     leadSubtitle: "Obtenez un PDF résumé de vos économies à partager avec votre équipe.",
     fullName: 'Nom complet *', company: 'Entreprise *', email: 'Email *', phone: 'Téléphone',
     downloadPDF: 'Télécharger le Rapport ROI (PDF)',
+    talkToExpert: 'Parler à un Expert',
     disclaimer: 'Vos informations sont uniquement utilisées pour générer le rapport. Dcycle respecte votre vie privée.',
     reportDownloaded: 'Rapport téléchargé!', checkDownloads: 'Vérifiez votre dossier de téléchargements.',
     fillFields: 'Veuillez remplir nom, entreprise et email.',
@@ -1154,7 +1192,7 @@ const LANGS = {
     ind_energy: 'Énergie et Services Publics', ind_construction: 'Construction et Immobilier', ind_tech: 'Technologie et Services',
     ind_finance: 'Services Financiers', ind_other: 'Autre',
     sol_ghg: 'Changement Climatique — Émissions GES', sol_ecovadis: 'Ecovadis', sol_lca: 'Analyse du Cycle de Vie (ACV)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Approvisionnement / Chaîne Logistique', sol_glec: 'Cadre GLEC — Émissions de Transport', sol_einf: 'DPEF / Reporting Extra-Financier',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Approvisionnement / Chaîne Logistique', sol_glec: 'Cadre GLEC — Émissions de Transport', sol_sbti: 'SBTi — Objectifs Fondés sur la Science', sol_einf: 'DPEF / Reporting Extra-Financier',
     companySize: 'Taille entreprise:', selectSize: '-- Sélectionnez la taille --',
     size_small: '250 – 1 000 employés', size_medium: '1 000 – 5 000 employés', size_large: '5 000+ employés',
     pdfCompanySize: 'Taille entreprise',
@@ -1199,6 +1237,7 @@ const LANGS = {
     leadSubtitle: 'Erhalten Sie eine PDF-Zusammenfassung Ihrer Einsparungen.',
     fullName: 'Vollständiger Name *', company: 'Unternehmen *', email: 'E-Mail *', phone: 'Telefon',
     downloadPDF: 'ROI-Bericht herunterladen (PDF)',
+    talkToExpert: 'Mit einem Experten sprechen',
     disclaimer: 'Ihre Daten werden nur zur Berichterstellung verwendet. Dcycle respektiert Ihre Privatsphäre.',
     reportDownloaded: 'Bericht heruntergeladen!', checkDownloads: 'Prüfen Sie Ihren Download-Ordner.',
     fillFields: 'Bitte Name, Unternehmen und E-Mail ausfüllen.',
@@ -1211,7 +1250,7 @@ const LANGS = {
     ind_energy: 'Energie & Versorger', ind_construction: 'Bau & Immobilien', ind_tech: 'Technologie & Dienstleistungen',
     ind_finance: 'Finanzdienstleistungen', ind_other: 'Andere',
     sol_ghg: 'Klimawandel — Treibhausgasemissionen', sol_ecovadis: 'Ecovadis', sol_lca: 'Lebenszyklusanalyse (LCA)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Beschaffung / Lieferkette', sol_glec: 'GLEC-Rahmenwerk — Transportemissionen', sol_einf: 'EINF / Nichtfinanzielle Berichterstattung',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Beschaffung / Lieferkette', sol_glec: 'GLEC-Rahmenwerk — Transportemissionen', sol_sbti: 'SBTi — Wissenschaftsbasierte Ziele', sol_einf: 'EINF / Nichtfinanzielle Berichterstattung',
     companySize: 'Unternehmensgröße:', selectSize: '-- Größe wählen --',
     size_small: '250 – 1.000 Mitarbeiter', size_medium: '1.000 – 5.000 Mitarbeiter', size_large: '5.000+ Mitarbeiter',
     pdfCompanySize: 'Unternehmensgröße',
@@ -1255,6 +1294,7 @@ const LANGS = {
     leadTitle: 'Scarica il tuo report ROI personalizzato', leadSubtitle: 'Ottieni un PDF con il riepilogo dei risparmi da condividere con il tuo team.',
     fullName: 'Nome completo *', company: 'Azienda *', email: 'Email *', phone: 'Telefono',
     downloadPDF: 'Scarica Report ROI (PDF)',
+    talkToExpert: 'Parla con un Esperto',
     disclaimer: 'Le tue informazioni sono utilizzate solo per generare il report. Dcycle rispetta la tua privacy.',
     reportDownloaded: 'Report scaricato!', checkDownloads: 'Controlla la cartella download.',
     fillFields: 'Compila nome, azienda e email.',
@@ -1267,7 +1307,7 @@ const LANGS = {
     ind_energy: 'Energia e Utility', ind_construction: 'Costruzioni e Immobiliare', ind_tech: 'Tecnologia e Servizi',
     ind_finance: 'Servizi Finanziari', ind_other: 'Altro',
     sol_ghg: 'Cambiamento Climatico — Emissioni GHG', sol_ecovadis: 'Ecovadis', sol_lca: 'Analisi del Ciclo di Vita (LCA)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Approvvigionamento / Supply Chain', sol_glec: 'Framework GLEC — Emissioni di Trasporto', sol_einf: 'EINF / Rendicontazione Non Finanziaria',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Approvvigionamento / Supply Chain', sol_glec: 'Framework GLEC — Emissioni di Trasporto', sol_sbti: 'SBTi — Obiettivi Basati sulla Scienza', sol_einf: 'EINF / Rendicontazione Non Finanziaria',
     companySize: 'Dimensione azienda:', selectSize: '-- Seleziona dimensione --',
     size_small: '250 – 1.000 dipendenti', size_medium: '1.000 – 5.000 dipendenti', size_large: '5.000+ dipendenti',
     pdfCompanySize: 'Dimensione azienda',
@@ -1311,6 +1351,7 @@ const LANGS = {
     leadTitle: 'Descarregue o seu relatorio ROI personalizado', leadSubtitle: 'Obtenha um PDF com o resumo das poupancas para partilhar com a sua equipa.',
     fullName: 'Nome completo *', company: 'Empresa *', email: 'Email *', phone: 'Telefone',
     downloadPDF: 'Descarregar Relatorio ROI (PDF)',
+    talkToExpert: 'Falar com um Especialista',
     disclaimer: 'As suas informações são usadas apenas para gerar o relatório. A Dcycle respeita a sua privacidade.',
     reportDownloaded: 'Relatorio descarregado!', checkDownloads: 'Verifique a sua pasta de downloads.',
     fillFields: 'Por favor preencha nome, empresa e email.',
@@ -1323,7 +1364,7 @@ const LANGS = {
     ind_energy: 'Energia e Utilidades', ind_construction: 'Construção e Imobiliário', ind_tech: 'Tecnologia e Serviços',
     ind_finance: 'Serviços Financeiros', ind_other: 'Outro',
     sol_ghg: 'Alterações Climáticas — Emissões GEE', sol_ecovadis: 'Ecovadis', sol_lca: 'Análise de Ciclo de Vida (ACV)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Aprovisionamento / Cadeia de Abastecimento', sol_glec: 'Quadro GLEC — Emissões de Transporte', sol_einf: 'EINF / Relato Não Financeiro',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Aprovisionamento / Cadeia de Abastecimento', sol_glec: 'Quadro GLEC — Emissões de Transporte', sol_sbti: 'SBTi — Metas Baseadas na Ciência', sol_einf: 'EINF / Relato Não Financeiro',
     companySize: 'Dimensão empresa:', selectSize: '-- Selecionar dimensão --',
     size_small: '250 – 1.000 funcionários', size_medium: '1.000 – 5.000 funcionários', size_large: '5.000+ funcionários',
     pdfCompanySize: 'Dimensão empresa',
@@ -1367,6 +1408,7 @@ const LANGS = {
     leadTitle: 'Download uw gepersonaliseerd ROI-rapport', leadSubtitle: 'Ontvang een PDF samenvatting van uw besparingen om te delen.',
     fullName: 'Volledige naam *', company: 'Bedrijf *', email: 'E-mail *', phone: 'Telefoon',
     downloadPDF: 'Download ROI Rapport (PDF)',
+    talkToExpert: 'Spreek met een Expert',
     disclaimer: 'Uw informatie wordt alleen gebruikt om het rapport te genereren. Dcycle respecteert uw privacy.',
     reportDownloaded: 'Rapport gedownload!', checkDownloads: 'Controleer uw downloads map.',
     fillFields: 'Vul naam, bedrijf en e-mail in.',
@@ -1379,7 +1421,7 @@ const LANGS = {
     ind_energy: 'Energie & Nutsbedrijven', ind_construction: 'Bouw & Vastgoed', ind_tech: 'Technologie & Diensten',
     ind_finance: 'Financiële Dienstverlening', ind_other: 'Anders',
     sol_ghg: 'Klimaatverandering — Broeikasgasemissies', sol_ecovadis: 'Ecovadis', sol_lca: 'Levenscyclusanalyse (LCA)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Inkoop / Toeleveringsketen', sol_glec: 'GLEC-Kader — Transportemissies', sol_einf: 'EINF / Niet-Financiële Rapportage',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Inkoop / Toeleveringsketen', sol_glec: 'GLEC-Kader — Transportemissies', sol_sbti: 'SBTi — Wetenschappelijk Onderbouwde Doelen', sol_einf: 'EINF / Niet-Financiële Rapportage',
     companySize: 'Bedrijfsgrootte:', selectSize: '-- Selecteer grootte --',
     size_small: '250 – 1.000 medewerkers', size_medium: '1.000 – 5.000 medewerkers', size_large: '5.000+ medewerkers',
     pdfCompanySize: 'Bedrijfsgrootte',
@@ -1387,25 +1429,31 @@ const LANGS = {
 };
 
 // ===================== SOLUTION & INDUSTRY DATA =====================
-const SOLUTION_KEYS = ['ghg','ecovadis','lca','iso','procurement','glec','einf'];
+const SOLUTION_KEYS = ['ecovadis','einf','ghg','glec','iso','lca','procurement','sbti'];
+// Solutions with sizeDependent=true vary by company size; others are fixed.
 const SOLUTIONS_DATA = {
-  ghg: { b1Manual: 240, b1Dcycle: 25 }, ecovadis: { b1Manual: 320, b1Dcycle: 48 },
-  lca: { b1Manual: 250, b1Dcycle: 30 }, iso: { b1Manual: 200, b1Dcycle: 25 },
-  procurement: { b1Manual: 85, b1Dcycle: 12 }, glec: { b1Manual: 150, b1Dcycle: 20 }, einf: { b1Manual: 45, b1Dcycle: 8 },
+  ecovadis:    { sizeDependent: true,  small: { b1Manual: 320, b1Dcycle: 48 }, medium: { b1Manual: 480, b1Dcycle: 72 }, large: { b1Manual: 800, b1Dcycle: 120 } },
+  einf:        { sizeDependent: true,  small: { b1Manual: 45,  b1Dcycle: 8 },  medium: { b1Manual: 68,  b1Dcycle: 12 }, large: { b1Manual: 113, b1Dcycle: 20 } },
+  ghg:         { sizeDependent: false, small: { b1Manual: 240, b1Dcycle: 25 }, medium: { b1Manual: 240, b1Dcycle: 25 }, large: { b1Manual: 240, b1Dcycle: 25 } },
+  glec:        { sizeDependent: true,  small: { b1Manual: 150, b1Dcycle: 20 }, medium: { b1Manual: 225, b1Dcycle: 30 }, large: { b1Manual: 375, b1Dcycle: 50 } },
+  iso:         { sizeDependent: false, small: { b1Manual: 200, b1Dcycle: 25 }, medium: { b1Manual: 200, b1Dcycle: 25 }, large: { b1Manual: 200, b1Dcycle: 25 } },
+  lca:         { sizeDependent: false, small: { b1Manual: 250, b1Dcycle: 30 }, medium: { b1Manual: 250, b1Dcycle: 30 }, large: { b1Manual: 250, b1Dcycle: 30 } },
+  procurement: { sizeDependent: false, small: { b1Manual: 85,  b1Dcycle: 12 }, medium: { b1Manual: 85,  b1Dcycle: 12 }, large: { b1Manual: 85,  b1Dcycle: 12 } },
+  sbti:        { sizeDependent: true,  small: { b1Manual: 200, b1Dcycle: 30 }, medium: { b1Manual: 300, b1Dcycle: 45 }, large: { b1Manual: 500, b1Dcycle: 75 } },
 };
 const INDUSTRY_KEYS = ['food','health','industrial','logistics','chemical','retail','energy','construction','tech','finance','other'];
 const INDUSTRY_DATA = {
-  food: { ref: 'Ajinomoto', solutions: { ghg:{before:35,after:8},ecovadis:{before:12,after:3},lca:{before:10,after:2},iso:{before:8,after:2},procurement:{before:15,after:3},glec:{before:12,after:3},einf:{before:10,after:2} }, tasks:[{task:'Consumption data collection',before:20,after:4},{task:'Scope 1+2 calculations',before:15,after:2},{task:'Scope 3 calculations',before:25,after:8},{task:'Regulatory registration (MITECO)',before:8,after:1},{task:'Annual reports',before:12,after:3},{task:'Product LCAs',before:10,after:2}]},
-  health: { ref: 'Miranza (40 clinics)', solutions: { ghg:{before:80,after:12},ecovadis:{before:25,after:5},lca:{before:15,after:3},iso:{before:20,after:4},procurement:{before:40,after:6},glec:{before:15,after:4},einf:{before:33,after:4} }, tasks:[{task:'Multi-site data collection',before:100,after:15},{task:'Manual platform upload',before:45,after:5},{task:'Validation & error correction',before:35,after:8},{task:'Investor fund reporting',before:20,after:4},{task:'Regulatory registration',before:13,after:2}]},
-  industrial: { ref: 'Emuca / Sulo Iberica', solutions: { ghg:{before:30,after:8},ecovadis:{before:15,after:3},lca:{before:25,after:6},iso:{before:40,after:4},procurement:{before:12,after:2},glec:{before:18,after:5},einf:{before:24,after:5} }, tasks:[{task:'Carbon footprint management',before:30,after:8},{task:'Product LCAs',before:25,after:6},{task:'Decarbonization plan',before:15,after:4},{task:'Client reporting',before:12,after:2},{task:'ISO 50001 energy baseline',before:40,after:4},{task:'Monthly group reports',before:24,after:4}]},
-  logistics: { ref: 'Perez y Cia / InPost', solutions: { ghg:{before:50,after:15},ecovadis:{before:12,after:3},lca:{before:8,after:2},iso:{before:20,after:7},procurement:{before:32,after:9},glec:{before:30,after:8},einf:{before:20,after:5} }, tasks:[{task:'ISO 14001 preparation',before:20,after:7},{task:'Manual GLEC calculations',before:30,after:10},{task:'Multi-company consolidation',before:22,after:7},{task:'Supplier data collection',before:50,after:12},{task:'Verification & audit',before:20,after:5}]},
-  chemical: { ref: 'Lluch Essence', solutions: { ghg:{before:18,after:5},ecovadis:{before:10,after:2},lca:{before:12,after:3},iso:{before:20,after:5},procurement:{before:18,after:4},glec:{before:15,after:4},einf:{before:10,after:3} }, tasks:[{task:'Logistics consolidation',before:50,after:12},{task:'Energy management ISO 50001',before:20,after:5},{task:'Carbon reporting',before:18,after:5}]},
-  retail: { ref: 'Industry average', solutions: { ghg:{before:20,after:5},ecovadis:{before:12,after:3},lca:{before:25,after:6},iso:{before:10,after:2},procurement:{before:18,after:4},glec:{before:12,after:3},einf:{before:10,after:2} }, tasks:[{task:'Supply chain data collection',before:35,after:8},{task:'Scope 3 upstream calculations',before:20,after:5},{task:'Product carbon footprints',before:25,after:6},{task:'Sustainability reporting',before:15,after:3}]},
-  energy: { ref: 'Industry average', solutions: { ghg:{before:40,after:8},ecovadis:{before:15,after:3},lca:{before:15,after:4},iso:{before:25,after:5},procurement:{before:20,after:5},glec:{before:15,after:4},einf:{before:20,after:5} }, tasks:[{task:'Emissions monitoring & reporting',before:60,after:12},{task:'Regulatory compliance (ETS)',before:30,after:8},{task:'Energy efficiency tracking',before:25,after:5},{task:'Decarbonization roadmap',before:20,after:5}]},
-  construction: { ref: 'Industry average', solutions: { ghg:{before:25,after:6},ecovadis:{before:12,after:3},lca:{before:25,after:6},iso:{before:20,after:5},procurement:{before:15,after:4},glec:{before:12,after:3},einf:{before:13,after:3} }, tasks:[{task:'Project-level emissions',before:40,after:10},{task:'Building certifications (BREEAM)',before:30,after:8},{task:'Material LCAs',before:25,after:6},{task:'Sustainability reporting',before:15,after:3}]},
-  tech: { ref: 'Industry average', solutions: { ghg:{before:15,after:3},ecovadis:{before:10,after:2},lca:{before:8,after:2},iso:{before:8,after:2},procurement:{before:10,after:2},glec:{before:8,after:2},einf:{before:9,after:2} }, tasks:[{task:'Scope 1+2 (offices, data centers)',before:15,after:3},{task:'Scope 3 (commuting, cloud)',before:20,after:5},{task:'ESG report / EINF',before:15,after:3},{task:'Carbon offset management',before:10,after:2}]},
-  finance: { ref: 'Industry average', solutions: { ghg:{before:25,after:5},ecovadis:{before:12,after:3},lca:{before:10,after:2},iso:{before:18,after:4},procurement:{before:20,after:5},glec:{before:10,after:3},einf:{before:25,after:7} }, tasks:[{task:'Portfolio carbon footprint',before:45,after:10},{task:'SFDR / EU Taxonomy alignment',before:30,after:8},{task:'ESG risk assessment',before:20,after:5},{task:'Regulatory reporting',before:15,after:3}]},
-  other: { ref: 'Cross-industry average', solutions: { ghg:{before:20,after:5},ecovadis:{before:10,after:2},lca:{before:10,after:3},iso:{before:12,after:3},procurement:{before:18,after:4},glec:{before:12,after:3},einf:{before:12,after:2} }, tasks:[{task:'Data collection & consolidation',before:30,after:7},{task:'Carbon calculations (all scopes)',before:25,after:6},{task:'Sustainability reporting',before:15,after:3},{task:'Regulatory compliance',before:12,after:3}]},
+  food: { ref: 'Ajinomoto', solutions: { ecovadis:{before:12,after:3},einf:{before:10,after:2},ghg:{before:35,after:8},glec:{before:12,after:3},iso:{before:8,after:2},lca:{before:10,after:2},procurement:{before:15,after:3},sbti:{before:10,after:3} }, tasks:[{task:'Consumption data collection',before:20,after:4},{task:'Scope 1+2 calculations',before:15,after:2},{task:'Scope 3 calculations',before:25,after:8},{task:'Regulatory registration (MITECO)',before:8,after:1},{task:'Annual reports',before:12,after:3},{task:'Product LCAs',before:10,after:2}]},
+  health: { ref: 'Miranza (40 clinics)', solutions: { ecovadis:{before:25,after:5},einf:{before:33,after:4},ghg:{before:80,after:12},glec:{before:15,after:4},iso:{before:20,after:4},lca:{before:15,after:3},procurement:{before:40,after:6},sbti:{before:15,after:4} }, tasks:[{task:'Multi-site data collection',before:100,after:15},{task:'Manual platform upload',before:45,after:5},{task:'Validation & error correction',before:35,after:8},{task:'Investor fund reporting',before:20,after:4},{task:'Regulatory registration',before:13,after:2}]},
+  industrial: { ref: 'Emuca / Sulo Iberica', solutions: { ecovadis:{before:15,after:3},einf:{before:24,after:5},ghg:{before:30,after:8},glec:{before:18,after:5},iso:{before:40,after:4},lca:{before:25,after:6},procurement:{before:12,after:2},sbti:{before:12,after:3} }, tasks:[{task:'Carbon footprint management',before:30,after:8},{task:'Product LCAs',before:25,after:6},{task:'Decarbonization plan',before:15,after:4},{task:'Client reporting',before:12,after:2},{task:'ISO 50001 energy baseline',before:40,after:4},{task:'Monthly group reports',before:24,after:4}]},
+  logistics: { ref: 'Perez y Cia / InPost', solutions: { ecovadis:{before:12,after:3},einf:{before:20,after:5},ghg:{before:50,after:15},glec:{before:30,after:8},iso:{before:20,after:7},lca:{before:8,after:2},procurement:{before:32,after:9},sbti:{before:15,after:4} }, tasks:[{task:'ISO 14001 preparation',before:20,after:7},{task:'Manual GLEC calculations',before:30,after:10},{task:'Multi-company consolidation',before:22,after:7},{task:'Supplier data collection',before:50,after:12},{task:'Verification & audit',before:20,after:5}]},
+  chemical: { ref: 'Lluch Essence', solutions: { ecovadis:{before:10,after:2},einf:{before:10,after:3},ghg:{before:18,after:5},glec:{before:15,after:4},iso:{before:20,after:5},lca:{before:12,after:3},procurement:{before:18,after:4},sbti:{before:10,after:3} }, tasks:[{task:'Logistics consolidation',before:50,after:12},{task:'Energy management ISO 50001',before:20,after:5},{task:'Carbon reporting',before:18,after:5}]},
+  retail: { ref: 'Industry average', solutions: { ecovadis:{before:12,after:3},einf:{before:10,after:2},ghg:{before:20,after:5},glec:{before:12,after:3},iso:{before:10,after:2},lca:{before:25,after:6},procurement:{before:18,after:4},sbti:{before:10,after:3} }, tasks:[{task:'Supply chain data collection',before:35,after:8},{task:'Scope 3 upstream calculations',before:20,after:5},{task:'Product carbon footprints',before:25,after:6},{task:'Sustainability reporting',before:15,after:3}]},
+  energy: { ref: 'Industry average', solutions: { ecovadis:{before:15,after:3},einf:{before:20,after:5},ghg:{before:40,after:8},glec:{before:15,after:4},iso:{before:25,after:5},lca:{before:15,after:4},procurement:{before:20,after:5},sbti:{before:12,after:3} }, tasks:[{task:'Emissions monitoring & reporting',before:60,after:12},{task:'Regulatory compliance (ETS)',before:30,after:8},{task:'Energy efficiency tracking',before:25,after:5},{task:'Decarbonization roadmap',before:20,after:5}]},
+  construction: { ref: 'Industry average', solutions: { ecovadis:{before:12,after:3},einf:{before:13,after:3},ghg:{before:25,after:6},glec:{before:12,after:3},iso:{before:20,after:5},lca:{before:25,after:6},procurement:{before:15,after:4},sbti:{before:10,after:3} }, tasks:[{task:'Project-level emissions',before:40,after:10},{task:'Building certifications (BREEAM)',before:30,after:8},{task:'Material LCAs',before:25,after:6},{task:'Sustainability reporting',before:15,after:3}]},
+  tech: { ref: 'Industry average', solutions: { ecovadis:{before:10,after:2},einf:{before:9,after:2},ghg:{before:15,after:3},glec:{before:8,after:2},iso:{before:8,after:2},lca:{before:8,after:2},procurement:{before:10,after:2},sbti:{before:8,after:2} }, tasks:[{task:'Scope 1+2 (offices, data centers)',before:15,after:3},{task:'Scope 3 (commuting, cloud)',before:20,after:5},{task:'ESG report / EINF',before:15,after:3},{task:'Carbon offset management',before:10,after:2}]},
+  finance: { ref: 'Industry average', solutions: { ecovadis:{before:12,after:3},einf:{before:25,after:7},ghg:{before:25,after:5},glec:{before:10,after:3},iso:{before:18,after:4},lca:{before:10,after:2},procurement:{before:20,after:5},sbti:{before:12,after:3} }, tasks:[{task:'Portfolio carbon footprint',before:45,after:10},{task:'SFDR / EU Taxonomy alignment',before:30,after:8},{task:'ESG risk assessment',before:20,after:5},{task:'Regulatory reporting',before:15,after:3}]},
+  other: { ref: 'Cross-industry average', solutions: { ecovadis:{before:10,after:2},einf:{before:12,after:2},ghg:{before:20,after:5},glec:{before:12,after:3},iso:{before:12,after:3},lca:{before:10,after:3},procurement:{before:18,after:4},sbti:{before:10,after:3} }, tasks:[{task:'Data collection & consolidation',before:30,after:7},{task:'Carbon calculations (all scopes)',before:25,after:6},{task:'Sustainability reporting',before:15,after:3},{task:'Regulatory compliance',before:12,after:3}]},
 };
 
 // ===================== COUNTRY DATA =====================
@@ -1469,13 +1517,24 @@ function buildIndustryOptions() {
   });
   sel.value = cur;
 }
+function getSizeKey() {
+  return currentSize || 'small';
+}
 function buildB1Solutions() {
   const list = document.getElementById('solutionsList');
+  // Remember which solutions were checked
+  const wasChecked = new Set();
+  list.querySelectorAll('.checkbox-item').forEach(item => {
+    if (item.querySelector('input').checked) wasChecked.add(item.dataset.key);
+  });
   list.innerHTML = '';
+  const sizeKey = getSizeKey();
   SOLUTION_KEYS.forEach(key => {
     const s = SOLUTIONS_DATA[key];
-    list.innerHTML += `<label class="checkbox-item" data-manual="${s.b1Manual}" data-dcycle="${s.b1Dcycle}" data-key="${key}">
-      <input type="checkbox" onchange="toggleCB(this); onSharedSolutionChange()">
+    const vals = s[sizeKey];
+    const checked = wasChecked.has(key);
+    list.innerHTML += `<label class="checkbox-item${checked?' checked':''}" data-manual="${vals.b1Manual}" data-dcycle="${vals.b1Dcycle}" data-key="${key}">
+      <input type="checkbox"${checked?' checked':''} onchange="toggleCB(this); onSharedSolutionChange()">
       <span class="cb-label">${t('sol_'+key)}</span>
     </label>`;
   });
@@ -1488,15 +1547,17 @@ function onSharedSolutionChange() {
 }
 function buildB1SolutionsSummary() {
   const container = document.getElementById('b1SolutionsSummary');
+  const sizeKey = getSizeKey();
   let html = '';
   document.querySelectorAll('#solutionsList .checkbox-item').forEach(item => {
     if (item.querySelector('input').checked) {
       const key = item.dataset.key;
       const s = SOLUTIONS_DATA[key];
-      const pct = s.b1Manual > 0 ? Math.round(((s.b1Manual - s.b1Dcycle) / s.b1Manual) * 100) : 0;
+      const vals = s[sizeKey];
+      const pct = vals.b1Manual > 0 ? Math.round(((vals.b1Manual - vals.b1Dcycle) / vals.b1Manual) * 100) : 0;
       html += `<div class="checkbox-item checked" style="cursor:default;">
         <span class="cb-label">${t('sol_'+key)}</span>
-        <span class="cb-hours">${s.b1Manual} \u2192 ${s.b1Dcycle} h</span>
+        <span class="cb-hours">${vals.b1Manual} \u2192 ${vals.b1Dcycle} h</span>
         <span class="cb-savings">-${pct}%</span>
       </div>`;
     }
@@ -1562,6 +1623,8 @@ function updateCurrencyBadge() {
 }
 function onSizeChange() {
   currentSize = document.getElementById('sizeSelect').value;
+  buildB1Solutions();
+  buildB1SolutionsSummary();
   calcAll();
 }
 function setSymbols() {
@@ -1630,17 +1693,11 @@ function buildB2Solutions() {
 }
 
 // ===================== CALCULATIONS =====================
-function getSizeMultiplier() {
-  if (currentSize === 'medium') return 1.5;
-  if (currentSize === 'large') return 2.5;
-  return 1.0; // small or unselected
-}
 function calcBlock1() {
   const rate = parseFloat(document.getElementById('consultancyRate').value) || 0;
-  const sizeMult = getSizeMultiplier();
   let manH=0, dcH=0;
   document.querySelectorAll('#solutionsList .checkbox-item').forEach(item => {
-    if (item.querySelector('input').checked) { manH+=Math.round(parseInt(item.dataset.manual)*sizeMult); dcH+=Math.round(parseInt(item.dataset.dcycle)*sizeMult); }
+    if (item.querySelector('input').checked) { manH+=parseInt(item.dataset.manual)||0; dcH+=parseInt(item.dataset.dcycle)||0; }
   });
   const saved = manH - dcH;
   b1Val = saved * rate;
@@ -1761,11 +1818,10 @@ function generatePDF() {
       doc.setTextColor(99,102,241); doc.setFont('helvetica','bold'); doc.setFontSize(12);
       doc.text(pdfSafe(t('b1ResultsTitle')),margin,y); y+=6;
       const b1Rows=[];
-      const pdfSizeMult = getSizeMultiplier();
       document.querySelectorAll('#solutionsList .checkbox-item').forEach(item => {
         if(item.querySelector('input').checked){
           const label=pdfSafe(item.querySelector('.cb-label').textContent);
-          const m=Math.round(parseInt(item.dataset.manual)*pdfSizeMult); const d=Math.round(parseInt(item.dataset.dcycle)*pdfSizeMult);
+          const m=parseInt(item.dataset.manual)||0; const d=parseInt(item.dataset.dcycle)||0;
           const s=m-d;
           const rate=parseFloat(document.getElementById('consultancyRate').value)||0;
           b1Rows.push([label,m+'h',d+'h',s+'h',fmtPdf(s*rate)]);
