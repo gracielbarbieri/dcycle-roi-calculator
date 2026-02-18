@@ -382,7 +382,7 @@ body {
   display: flex;
   align-items: center;
   gap: 9px;
-  padding: 7px 11px;
+  padding: 9px 12px;
   border-radius: 10px;
   border: 1px solid var(--gray-20);
   cursor: pointer;
@@ -408,7 +408,8 @@ body {
 .checkbox-item.b2-solution input[type="checkbox"] {
   accent-color: #0EA5E9;
 }
-.checkbox-item .cb-label { flex: 1; font-weight: 500; color: var(--gray-70); }
+.checkbox-item .cb-label { flex: 1; font-weight: 500; color: var(--gray-70); display: flex; flex-direction: column; gap: 1px; }
+.checkbox-item .cb-label .sol-desc { font-size: 10.5px; font-weight: 400; color: var(--gray-50); line-height: 1.3; }
 .checkbox-item .cb-hours {
   font-size: 11px;
   color: var(--gray-50);
@@ -1063,7 +1064,9 @@ const LANGS = {
     ind_finance: 'Financial Services', ind_other: 'Other',
     // Solutions
     sol_ghg: 'Climate Change — GHG Emissions', sol_ecovadis: 'Ecovadis', sol_lca: 'Life Cycle Analysis (LCA)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Procurement / Supply Chain', sol_glec: 'GLEC Framework — Transport Emissions', sol_sbti: 'SBTi — Science Based Targets', sol_einf: 'EINF / Non-Financial Reporting',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Procurement', sol_glec: 'GLEC', sol_sbti: 'SBTi', sol_einf: 'Non-Financial Reporting (EINF)',
+    desc_ghg: 'Full automatic calculation of Scopes 1, 2 and 3', desc_ecovadis: 'Metrics collection for Ecovadis reporting', desc_lca: 'Eco-design and product carbon footprint calculation',
+    desc_iso: 'Metrics collection for ISO reporting', desc_procurement: 'Raw material templates, predefined classifications', desc_glec: 'Logistics carbon footprint per package and shipment', desc_sbti: 'Progress reports and annual monitoring', desc_einf: 'Automated non-financial statement generation',
     companySize: 'Company size:', selectSize: '-- Select size --',
     size_small: '250 – 1,000 employees', size_medium: '1,000 – 5,000 employees', size_large: '5,000+ employees',
     pdfCompanySize: 'Company size',
@@ -1133,7 +1136,9 @@ const LANGS = {
     ind_energy: 'Energía y Utilities', ind_construction: 'Construcción e Inmobiliario', ind_tech: 'Tecnología y Servicios',
     ind_finance: 'Servicios Financieros', ind_other: 'Otro',
     sol_ghg: 'Cambio Climático — Emisiones GEI', sol_ecovadis: 'Ecovadis', sol_lca: 'Análisis de Ciclo de Vida (ACV)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Aprovisionamiento / Cadena de Suministro', sol_glec: 'Marco GLEC — Emisiones de Transporte', sol_sbti: 'SBTi — Objetivos Basados en la Ciencia', sol_einf: 'EINF / Información No Financiera',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Compras', sol_glec: 'GLEC', sol_sbti: 'SBTi', sol_einf: 'Reporte No Financiero (EINF)',
+    desc_ghg: 'Cálculo automático completo de Alcances 1, 2 y 3', desc_ecovadis: 'Obtención de métricas para reportar Ecovadis', desc_lca: 'Eco-diseño y cálculo de huella de carbono de producto',
+    desc_iso: 'Obtención de métricas para reportar las ISOs', desc_procurement: 'Templates materias primas, clasificaciones predefinidas', desc_glec: 'Obtención de HdC de logística por paquete y por envío', desc_sbti: 'Informes de progreso y monitoreo anual', desc_einf: 'Generación automatizada del estado de información no financiera',
     companySize: 'Tamaño empresa:', selectSize: '-- Seleccionar tamaño --',
     size_small: '250 – 1.000 empleados', size_medium: '1.000 – 5.000 empleados', size_large: '5.000+ empleados',
     pdfCompanySize: 'Tamaño empresa',
@@ -1192,7 +1197,9 @@ const LANGS = {
     ind_energy: 'Énergie et Services Publics', ind_construction: 'Construction et Immobilier', ind_tech: 'Technologie et Services',
     ind_finance: 'Services Financiers', ind_other: 'Autre',
     sol_ghg: 'Changement Climatique — Émissions GES', sol_ecovadis: 'Ecovadis', sol_lca: 'Analyse du Cycle de Vie (ACV)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Approvisionnement / Chaîne Logistique', sol_glec: 'Cadre GLEC — Émissions de Transport', sol_sbti: 'SBTi — Objectifs Fondés sur la Science', sol_einf: 'DPEF / Reporting Extra-Financier',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Achats', sol_glec: 'GLEC', sol_sbti: 'SBTi', sol_einf: 'Reporting Extra-Financier (DPEF)',
+    desc_ghg: 'Calcul automatique complet des Scopes 1, 2 et 3', desc_ecovadis: 'Collecte de métriques pour le reporting Ecovadis', desc_lca: 'Éco-conception et calcul de l\'empreinte carbone produit',
+    desc_iso: 'Collecte de métriques pour le reporting ISO', desc_procurement: 'Templates matières premières, classifications prédéfinies', desc_glec: 'Empreinte carbone logistique par colis et par envoi', desc_sbti: 'Rapports de progrès et suivi annuel', desc_einf: 'Génération automatisée de la déclaration extra-financière',
     companySize: 'Taille entreprise:', selectSize: '-- Sélectionnez la taille --',
     size_small: '250 – 1 000 employés', size_medium: '1 000 – 5 000 employés', size_large: '5 000+ employés',
     pdfCompanySize: 'Taille entreprise',
@@ -1250,7 +1257,9 @@ const LANGS = {
     ind_energy: 'Energie & Versorger', ind_construction: 'Bau & Immobilien', ind_tech: 'Technologie & Dienstleistungen',
     ind_finance: 'Finanzdienstleistungen', ind_other: 'Andere',
     sol_ghg: 'Klimawandel — Treibhausgasemissionen', sol_ecovadis: 'Ecovadis', sol_lca: 'Lebenszyklusanalyse (LCA)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Beschaffung / Lieferkette', sol_glec: 'GLEC-Rahmenwerk — Transportemissionen', sol_sbti: 'SBTi — Wissenschaftsbasierte Ziele', sol_einf: 'EINF / Nichtfinanzielle Berichterstattung',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Einkauf', sol_glec: 'GLEC', sol_sbti: 'SBTi', sol_einf: 'Nichtfinanzielle Berichterstattung (EINF)',
+    desc_ghg: 'Vollständige automatische Berechnung der Scopes 1, 2 und 3', desc_ecovadis: 'Metriken-Erfassung für Ecovadis-Reporting', desc_lca: 'Öko-Design und Produkt-CO\u2082-Fußabdruck-Berechnung',
+    desc_iso: 'Metriken-Erfassung für ISO-Reporting', desc_procurement: 'Rohstoff-Templates, vordefinierte Klassifizierungen', desc_glec: 'Logistik-CO\u2082-Fußabdruck pro Paket und Sendung', desc_sbti: 'Fortschrittsberichte und jährliches Monitoring', desc_einf: 'Automatisierte Erstellung des nichtfinanziellen Berichts',
     companySize: 'Unternehmensgröße:', selectSize: '-- Größe wählen --',
     size_small: '250 – 1.000 Mitarbeiter', size_medium: '1.000 – 5.000 Mitarbeiter', size_large: '5.000+ Mitarbeiter',
     pdfCompanySize: 'Unternehmensgröße',
@@ -1307,7 +1316,9 @@ const LANGS = {
     ind_energy: 'Energia e Utility', ind_construction: 'Costruzioni e Immobiliare', ind_tech: 'Tecnologia e Servizi',
     ind_finance: 'Servizi Finanziari', ind_other: 'Altro',
     sol_ghg: 'Cambiamento Climatico — Emissioni GHG', sol_ecovadis: 'Ecovadis', sol_lca: 'Analisi del Ciclo di Vita (LCA)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Approvvigionamento / Supply Chain', sol_glec: 'Framework GLEC — Emissioni di Trasporto', sol_sbti: 'SBTi — Obiettivi Basati sulla Scienza', sol_einf: 'EINF / Rendicontazione Non Finanziaria',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Acquisti', sol_glec: 'GLEC', sol_sbti: 'SBTi', sol_einf: 'Rendicontazione Non Finanziaria (EINF)',
+    desc_ghg: 'Calcolo automatico completo degli Scope 1, 2 e 3', desc_ecovadis: 'Raccolta metriche per il reporting Ecovadis', desc_lca: 'Eco-design e calcolo dell\'impronta di carbonio del prodotto',
+    desc_iso: 'Raccolta metriche per il reporting ISO', desc_procurement: 'Template materie prime, classificazioni predefinite', desc_glec: 'Impronta di carbonio logistica per pacco e per spedizione', desc_sbti: 'Report di avanzamento e monitoraggio annuale', desc_einf: 'Generazione automatizzata del rendiconto non finanziario',
     companySize: 'Dimensione azienda:', selectSize: '-- Seleziona dimensione --',
     size_small: '250 – 1.000 dipendenti', size_medium: '1.000 – 5.000 dipendenti', size_large: '5.000+ dipendenti',
     pdfCompanySize: 'Dimensione azienda',
@@ -1364,7 +1375,9 @@ const LANGS = {
     ind_energy: 'Energia e Utilidades', ind_construction: 'Construção e Imobiliário', ind_tech: 'Tecnologia e Serviços',
     ind_finance: 'Serviços Financeiros', ind_other: 'Outro',
     sol_ghg: 'Alterações Climáticas — Emissões GEE', sol_ecovadis: 'Ecovadis', sol_lca: 'Análise de Ciclo de Vida (ACV)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Aprovisionamento / Cadeia de Abastecimento', sol_glec: 'Quadro GLEC — Emissões de Transporte', sol_sbti: 'SBTi — Metas Baseadas na Ciência', sol_einf: 'EINF / Relato Não Financeiro',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Compras', sol_glec: 'GLEC', sol_sbti: 'SBTi', sol_einf: 'Relato Não Financeiro (EINF)',
+    desc_ghg: 'Cálculo automático completo dos Escopos 1, 2 e 3', desc_ecovadis: 'Recolha de métricas para reporte Ecovadis', desc_lca: 'Eco-design e cálculo da pegada de carbono do produto',
+    desc_iso: 'Recolha de métricas para reporte ISO', desc_procurement: 'Templates de matérias-primas, classificações predefinidas', desc_glec: 'Pegada de carbono logística por pacote e por envio', desc_sbti: 'Relatórios de progresso e monitorização anual', desc_einf: 'Geração automatizada do relato não financeiro',
     companySize: 'Dimensão empresa:', selectSize: '-- Selecionar dimensão --',
     size_small: '250 – 1.000 funcionários', size_medium: '1.000 – 5.000 funcionários', size_large: '5.000+ funcionários',
     pdfCompanySize: 'Dimensão empresa',
@@ -1421,7 +1434,9 @@ const LANGS = {
     ind_energy: 'Energie & Nutsbedrijven', ind_construction: 'Bouw & Vastgoed', ind_tech: 'Technologie & Diensten',
     ind_finance: 'Financiële Dienstverlening', ind_other: 'Anders',
     sol_ghg: 'Klimaatverandering — Broeikasgasemissies', sol_ecovadis: 'Ecovadis', sol_lca: 'Levenscyclusanalyse (LCA)',
-    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Inkoop / Toeleveringsketen', sol_glec: 'GLEC-Kader — Transportemissies', sol_sbti: 'SBTi — Wetenschappelijk Onderbouwde Doelen', sol_einf: 'EINF / Niet-Financiële Rapportage',
+    sol_iso: 'ISOs (ISO 14001, ISO 45001...)', sol_procurement: 'Inkoop', sol_glec: 'GLEC', sol_sbti: 'SBTi', sol_einf: 'Niet-Financiële Rapportage (EINF)',
+    desc_ghg: 'Volledige automatische berekening van Scopes 1, 2 en 3', desc_ecovadis: 'Metriekverzameling voor Ecovadis-rapportage', desc_lca: 'Eco-design en productcarbonvoetafdrukberekening',
+    desc_iso: 'Metriekverzameling voor ISO-rapportage', desc_procurement: 'Grondstoftemplates, vooraf gedefinieerde classificaties', desc_glec: 'Logistieke carbonvoetafdruk per pakket en per zending', desc_sbti: 'Voortgangsrapporten en jaarlijkse monitoring', desc_einf: 'Geautomatiseerde generatie van het niet-financieel verslag',
     companySize: 'Bedrijfsgrootte:', selectSize: '-- Selecteer grootte --',
     size_small: '250 – 1.000 medewerkers', size_medium: '1.000 – 5.000 medewerkers', size_large: '5.000+ medewerkers',
     pdfCompanySize: 'Bedrijfsgrootte',
@@ -1536,9 +1551,10 @@ function buildB1Solutions() {
     const s = SOLUTIONS_DATA[key];
     const vals = s[sizeKey];
     const checked = wasChecked.has(key);
+    const desc = t('desc_'+key);
     list.innerHTML += `<label class="checkbox-item${checked?' checked':''}" data-manual="${vals.b1Manual}" data-dcycle="${vals.b1Dcycle}" data-key="${key}">
       <input type="checkbox"${checked?' checked':''} onchange="toggleCB(this); onSharedSolutionChange()">
-      <span class="cb-label">${t('sol_'+key)}</span>
+      <span class="cb-label"><span>${t('sol_'+key)}</span>${desc ? '<span class="sol-desc">'+desc+'</span>' : ''}</span>
     </label>`;
   });
 }
