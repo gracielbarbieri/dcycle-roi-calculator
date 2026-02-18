@@ -1520,6 +1520,9 @@ function buildIndustryOptions() {
 function getSizeKey() {
   return currentSize || 'small';
 }
+function sortedSolutionKeys() {
+  return [...SOLUTION_KEYS].sort((a, b) => t('sol_'+a).localeCompare(t('sol_'+b), currentLang));
+}
 function buildB1Solutions() {
   const list = document.getElementById('solutionsList');
   // Remember which solutions were checked
@@ -1529,7 +1532,7 @@ function buildB1Solutions() {
   });
   list.innerHTML = '';
   const sizeKey = getSizeKey();
-  SOLUTION_KEYS.forEach(key => {
+  sortedSolutionKeys().forEach(key => {
     const s = SOLUTIONS_DATA[key];
     const vals = s[sizeKey];
     const checked = wasChecked.has(key);
@@ -1677,7 +1680,7 @@ function buildB2Solutions() {
     if (item.querySelector('input').checked) sharedChecked.add(item.dataset.key);
   });
   let html = '';
-  SOLUTION_KEYS.forEach(key => {
+  sortedSolutionKeys().forEach(key => {
     if (!sharedChecked.has(key)) return;
     const s = ind.solutions[key]; if (!s) return;
     const pct = s.before>0 ? Math.round(((s.before-s.after)/s.before)*100) : 0;
