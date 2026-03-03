@@ -643,6 +643,8 @@ body {
 .btn-secondary:hover { background: #059669; transform: translateY(-1px); box-shadow: var(--shadow-md); }
 .btn-secondary:active { transform: translateY(0); }
 .btn-secondary svg { width: 18px; height: 18px; }
+#hsFormContainer { margin-bottom: 20px; }
+#hsFormContainer .hs-form-frame { min-height: 200px; }
 .lead-buttons {
   display: flex;
   gap: 12px;
@@ -932,30 +934,11 @@ body {
     </div>
     <div class="lead-body">
       <div id="leadForm">
-        <div class="lead-grid">
-          <div class="field-group">
-            <label class="field-label" data-i18n="fullName">Full name *</label>
-            <input type="text" class="field-input" id="leadName" placeholder="John Smith" required>
-          </div>
-          <div class="field-group">
-            <label class="field-label" data-i18n="company">Company *</label>
-            <input type="text" class="field-input" id="leadCompany" placeholder="Acme Corp">
-          </div>
-          <div class="field-group">
-            <label class="field-label" data-i18n="email">Email *</label>
-            <input type="email" class="field-input" id="leadEmail" placeholder="john@acme.com">
-          </div>
-          <div class="field-group">
-            <label class="field-label" data-i18n="phone">Phone</label>
-            <input type="tel" class="field-input" id="leadPhone" placeholder="+34 600 123 456">
-          </div>
-        </div>
+        <!-- HubSpot form container -->
+        <div id="hsFormContainer"></div>
+        <!-- CTAs below form -->
         <div class="lead-buttons">
-          <button class="btn-primary" onclick="generatePDF()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
-            <span data-i18n="downloadPDF">Download ROI Report (PDF)</span>
-          </button>
-          <a class="btn-secondary" href="https://dcycle.io/es/agenda-demostracion" target="_blank" rel="noopener noreferrer">
+          <a class="btn-secondary" href="https://dcycle.io/demo/?utm_campaign=ROI+Calculator" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
             <span data-i18n="talkToExpert">Talk to an Expert</span>
           </a>
@@ -1617,6 +1600,7 @@ function onLangChange() {
   currentLang = document.getElementById('langSelect').value;
   applyLang();
   calcAll();
+  loadHsForm();
 }
 function onCountryChange() {
   currentCountry = document.getElementById('countrySelect').value;
@@ -1632,6 +1616,7 @@ function onCountryChange() {
     currentLang = c.lang;
     document.getElementById('langSelect').value = currentLang;
     applyLang();
+    loadHsForm();
   }
   setSymbols();
   calcAll();
@@ -1780,12 +1765,11 @@ function pdfSafe(str) {
     .replace(/[^\x00-\x7F\xA0-\xFF]/g, '');  // keep only Latin-1 safe chars
 }
 
-function generatePDF() {
-  const name = document.getElementById('leadName').value.trim();
-  const company = document.getElementById('leadCompany').value.trim();
-  const email = document.getElementById('leadEmail').value.trim();
-  const phone = document.getElementById('leadPhone').value.trim();
-  if (!name||!company||!email) { alert(t('fillFields')); return; }
+function generatePDF(name, company, email, phone) {
+  name = name || '';
+  company = company || '';
+  email = email || '';
+  phone = phone || '';
 
   try {
     const { jsPDF } = window.jspdf;
@@ -1915,7 +1899,7 @@ function generatePDF() {
     doc.text(pdfSafe(t('pdfFooter')),W/2,285,{align:'center',maxWidth:cw});
     doc.text('www.dcycle.io',W/2,290,{align:'center'});
 
-    doc.save('Dcycle_ROI_Report_'+company.replace(/\s+/g,'_')+'.pdf');
+    doc.save('Dcycle_ROI_Report_'+(company||'Report').replace(/\s+/g,'_')+'.pdf');
     document.getElementById('leadForm').style.display='none';
     document.getElementById('formSuccess').style.display='block';
     setTimeout(()=>{document.getElementById('leadForm').style.display='block';document.getElementById('formSuccess').style.display='none';},4000);
@@ -1923,6 +1907,54 @@ function generatePDF() {
     console.error('PDF generation error:', err);
     alert('Error generating PDF: '+err.message);
   }
+}
+
+// ===================== HUBSPOT FORMS =====================
+const HS_FORMS = {
+  es: '7c56cfe4-bdbe-4c96-80a2-35690b5488e5',
+  en: 'b87fe3e6-b1f6-4314-ad40-d166194c4d02'
+};
+let hsFormLoaded = '';
+
+function getHsFormId() {
+  return currentLang === 'es' ? HS_FORMS.es : HS_FORMS.en;
+}
+
+function loadHsForm() {
+  const formId = getHsFormId();
+  if (hsFormLoaded === formId) return;
+  hsFormLoaded = formId;
+  const container = document.getElementById('hsFormContainer');
+  container.innerHTML = '';
+  if (!window.hbspt || !window.hbspt.forms) return;
+  window.hbspt.forms.create({
+    region: 'na1',
+    portalId: '20392666',
+    formId: formId,
+    target: '#hsFormContainer',
+    onFormReady: function(form) {
+      // Inject UTM_Campaign value
+      const setUtm = () => {
+        const utmInputs = form.querySelectorAll('input[name="utm_campaign"]');
+        utmInputs.forEach(inp => { inp.value = 'ROI Calculator'; });
+      };
+      setUtm();
+      setTimeout(setUtm, 500);
+      setTimeout(setUtm, 1500);
+    },
+    onFormSubmitted: function(form, data) {
+      // Extract submitted data for PDF
+      let name = '', company = '', email = '', phone = '';
+      if (data && data.submissionValues) {
+        name = data.submissionValues.firstname || data.submissionValues.name || '';
+        if (data.submissionValues.lastname) name += ' ' + data.submissionValues.lastname;
+        company = data.submissionValues.company || '';
+        email = data.submissionValues.email || '';
+        phone = data.submissionValues.phone || data.submissionValues.mobilephone || '';
+      }
+      generatePDF(name, company, email, phone);
+    }
+  });
 }
 
 // ===================== INIT =====================
@@ -1940,7 +1972,17 @@ document.addEventListener('DOMContentLoaded', () => {
   setSymbols();
   updateCurrencyBadge();
   calcAll();
+  // Load HubSpot form after HS script is ready
+  function waitForHsAndLoad() {
+    if (window.hbspt && window.hbspt.forms) {
+      loadHsForm();
+    } else {
+      setTimeout(waitForHsAndLoad, 200);
+    }
+  }
+  waitForHsAndLoad();
 });
 </script>
+<script src="https://js.hsforms.net/forms/embed/20392666.js" defer></script>
 </body>
 </html>
